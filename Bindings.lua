@@ -1,0 +1,1 @@
+_G["BINDING_NAME_MACRO PPAutoMacro"] = "Macro PPAutoMacro"

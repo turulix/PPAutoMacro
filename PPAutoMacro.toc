@@ -1,0 +1,10 @@
+## Interface: 100002
+## Version: 1.0.0
+## Title: Power Potion Auto Macro
+## Author: turulix
+## Notes: Updates the Macro PPAutoPot to use the heighest Potion of Power Available
+## SavedVariables: PPAutoPot
+code.lua
+Item.lua
+Potions.lua
+Bindings.lua
