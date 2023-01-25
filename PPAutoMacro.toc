@@ -4,6 +4,7 @@
 ## Author: turulix
 ## Notes: Updates the Macro PPAutoPot to use the heighest Potion of Power Available
 ## SavedVariables: PPAutoPot
+## X-Curse-Project-ID: 818023
 code.lua
 Item.lua
 Potions.lua
