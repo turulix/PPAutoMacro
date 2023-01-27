@@ -38,9 +38,9 @@ function pp.getPots()
 
     local _, type = GetInstanceInfo()
     if PPDB.useSchockingDiscolure and type == "party" then
-        table.insert(pots, 0, pp.Shocking1)
-        table.insert(pots, 0, pp.Shocking2)
-        table.insert(pots, 0, pp.Shocking3)
+        table.insert(pots, 1, pp.Shocking1)
+        table.insert(pots, 1, pp.Shocking2)
+        table.insert(pots, 1, pp.Shocking3)
     end
     return pots
 end
