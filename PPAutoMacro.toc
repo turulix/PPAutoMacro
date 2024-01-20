@@ -1,6 +1,6 @@
 ## Interface: 100205
 ## Version: @project-version@
-## Title: Potion of Power Auto Macro
+## Title: Potion & Phial Auto Macro
 ## Author: turulix
 ## Notes: Updates the Macro PPAutoPot & PPAutoPhial to use the highest Potion & Phial Available.
 ## SavedVariablesPerCharacter: PPDB

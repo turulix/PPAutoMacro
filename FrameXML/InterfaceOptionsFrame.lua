@@ -51,11 +51,11 @@ panel:SetScript("OnEvent", panel.OnEvent)
 
 function panel:InitializeOptions()
     self.panel = CreateFrame("Frame")
-    self.panel.name = "Potion of Power Auto Macro"
+    self.panel.name = "Potion & Phial Auto Macro"
     -- Title
     local title = self.panel:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
     title:SetPoint("Top", 0, -5)
-    title:SetText("Potion of Power Auto Macro")
+    title:SetText("Potion & Phial Auto Macro")
 
     local iterCounter = 1
 
