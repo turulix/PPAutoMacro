@@ -1,4 +1,4 @@
----@class Spell
+---@class C_Spell @Spell
 C_Spell = {}
 
 ---@param spellID number 
@@ -6,7 +6,7 @@ C_Spell = {}
 function C_Spell.DoesSpellExist(spellID) end
 
 ---@param spellID number 
----@return string rarityBorderAtlas
+---@return textureAtlas rarityBorderAtlas
 function C_Spell.GetMawPowerBorderAtlasBySpellID(spellID) end
 
 ---@param spellID number 
@@ -15,4 +15,7 @@ function C_Spell.IsSpellDataCached(spellID) end
 
 ---@param spellID number 
 function C_Spell.RequestLoadSpellData(spellID) end
+
+---@return boolean jumpsUpgradeTrack
+function C_Spell.TargetSpellJumpsUpgradeTrack() end
 

@@ -1,14 +1,14 @@
----@class PetBattles
+---@class C_PetBattles @PetBattles
 C_PetBattles = {}
 
 ---@param petOwner number 
 ---@param slot number 
----@return number quality
+---@return luaIndex quality
 function C_PetBattles.GetBreedQuality(petOwner, slot) end
 
 ---@param petOwner number 
 ---@param slot number 
----@return number iconFileID
+---@return fileID iconFileID
 function C_PetBattles.GetIcon(petOwner, slot) end
 
 ---@param petOwner number 

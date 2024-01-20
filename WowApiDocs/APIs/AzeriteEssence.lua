@@ -1,4 +1,4 @@
----@class AzeriteEssence
+---@class C_AzeriteEssence @AzeriteEssence
 C_AzeriteEssence = {}
 
 ---@param essenceID number 
@@ -23,7 +23,7 @@ function C_AzeriteEssence.CloseForge() end
 
 ---@param essenceID number 
 ---@param rank number 
----@return string link
+---@return cstring link
 function C_AzeriteEssence.GetEssenceHyperlink(essenceID, rank) end
 
 ---@param essenceID number 
@@ -74,19 +74,19 @@ function C_AzeriteEssence.UnlockMilestone(milestoneID) end
 
 ---@class AzeriteEssenceInfo
 ---@field ID number 
----@field name string 
+---@field name cstring 
 ---@field rank number 
----@field unlocked bool 
----@field valid bool 
----@field icon number 
-local AzeriteEssenceInfo = {}
+---@field unlocked boolean 
+---@field valid boolean 
+---@field icon fileID 
+AzeriteEssenceInfo = {}
 
 ---@class AzeriteMilestoneInfo
 ---@field ID number 
 ---@field requiredLevel number 
----@field canUnlock bool 
----@field unlocked bool 
+---@field canUnlock boolean 
+---@field unlocked boolean 
 ---@field rank number|nil 
 ---@field slot AzeriteEssenceSlot|nil 
-local AzeriteMilestoneInfo = {}
+AzeriteMilestoneInfo = {}
 

@@ -1,37 +1,38 @@
----@class Vignette
+---@class C_VignetteInfo @Vignette
 C_VignetteInfo = {}
 
----@param vignetteGUIDs string 
----@return number|nil bestUniqueVignetteIndex
+---@param vignetteGUIDs WOWGUID 
+---@return luaIndex|nil bestUniqueVignetteIndex
 function C_VignetteInfo.FindBestUniqueVignette(vignetteGUIDs) end
 
----@param vignetteGUID string 
+---@param vignetteGUID WOWGUID 
 ---@return VignetteInfo|nil vignetteInfo
 function C_VignetteInfo.GetVignetteInfo(vignetteGUID) end
 
----@param vignetteGUID string 
+---@param vignetteGUID WOWGUID 
 ---@param uiMapID number 
----@return table|nil vignettePosition
+---@return vector2, number|nil vignettePosition, vignetteFacing
 function C_VignetteInfo.GetVignettePosition(vignetteGUID, uiMapID) end
 
----@return string vignetteGUIDs
+---@return WOWGUID vignetteGUIDs
 function C_VignetteInfo.GetVignettes() end
 
 ---@class VignetteInfo
----@field vignetteGUID string 
----@field objectGUID string 
----@field name string 
----@field isDead bool 
----@field onWorldMap bool 
----@field zoneInfiniteAOI bool 
----@field onMinimap bool 
----@field isUnique bool 
----@field inFogOfWar bool 
----@field atlasName string 
----@field hasTooltip bool 
+---@field vignetteGUID WOWGUID 
+---@field objectGUID WOWGUID 
+---@field name cstring 
+---@field isDead boolean 
+---@field onWorldMap boolean 
+---@field zoneInfiniteAOI boolean 
+---@field onMinimap boolean 
+---@field isUnique boolean 
+---@field inFogOfWar boolean 
+---@field atlasName textureAtlas 
+---@field hasTooltip boolean 
 ---@field vignetteID number 
 ---@field type VignetteType 
 ---@field rewardQuestID number 
 ---@field widgetSetID number|nil 
-local VignetteInfo = {}
+---@field addPaddingAboveWidgets boolean|nil 
+VignetteInfo = {}
 

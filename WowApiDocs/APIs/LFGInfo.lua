@@ -1,4 +1,4 @@
----@class LFGInfo
+---@class C_LFGInfo @LFGInfo
 C_LFGInfo = {}
 
 ---@return boolean, string canUse, failureReason
@@ -18,7 +18,7 @@ function C_LFGInfo.CanPlayerUsePremadeGroup() end
 
 function C_LFGInfo.ConfirmLfgExpandSearch() end
 
----@param category number 
+---@param category luaIndex 
 ---@return number lfgDungeonIDs
 function C_LFGInfo.GetAllEntriesForCategory(category) end
 
@@ -36,15 +36,34 @@ function C_LFGInfo.GetRoleCheckDifficultyDetails() end
 ---@return boolean shouldHide
 function C_LFGInfo.HideNameFromUI(dungeonID) end
 
+---@return boolean enabled
+function C_LFGInfo.IsGroupFinderEnabled() end
+
+---@return boolean result
+function C_LFGInfo.IsInLFGFollowerDungeon() end
+
+---@return boolean enabled
+function C_LFGInfo.IsLFDEnabled() end
+
+---@param dungeonID number 
+---@return boolean result
+function C_LFGInfo.IsLFGFollowerDungeon(dungeonID) end
+
+---@return boolean enabled
+function C_LFGInfo.IsLFREnabled() end
+
+---@return boolean enabled
+function C_LFGInfo.IsPremadeGroupEnabled() end
+
 ---@class LFGDungeonInfo
 ---@field name string 
----@field iconID number 
+---@field iconID fileID 
 ---@field link string|nil 
-local LFGDungeonInfo = {}
+LFGDungeonInfo = {}
 
 ---@class LFGLockInfo
 ---@field lfgID number 
 ---@field reason number 
----@field hideEntry bool 
-local LFGLockInfo = {}
+---@field hideEntry boolean 
+LFGLockInfo = {}
 

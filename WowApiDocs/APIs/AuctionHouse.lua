@@ -1,14 +1,14 @@
----@class AuctionHouse
+---@class C_AuctionHouse @AuctionHouse
 C_AuctionHouse = {}
 
 ---@param itemID number 
----@param duration number 
+---@param duration luaIndex 
 ---@param quantity number 
 ---@return number|nil depositCost
 function C_AuctionHouse.CalculateCommodityDeposit(itemID, duration, quantity) end
 
----@param item table 
----@param duration number 
+---@param item ItemLocation 
+---@param duration luaIndex 
 ---@param quantity number 
 ---@return number|nil depositCost
 function C_AuctionHouse.CalculateItemDeposit(item, duration, quantity) end
@@ -30,19 +30,17 @@ function C_AuctionHouse.CloseAuctionHouse() end
 ---@param quantity number 
 function C_AuctionHouse.ConfirmCommoditiesPurchase(itemID, quantity) end
 
----@param item table 
----@param duration number 
+---@param item ItemLocation 
+---@param duration luaIndex 
 ---@param quantity number 
----@param unitPrice number 
+---@param unitPrice BigUInteger 
 function C_AuctionHouse.ConfirmPostCommodity(item, duration, quantity, unitPrice) end
 
----@param item table 
----@param duration number 
+---@param item ItemLocation 
+---@param duration luaIndex 
 ---@param quantity number 
----@param bid number @ [OPTIONAL]
----@param buyout number @ [OPTIONAL]
----@overload fun(item:table, duration:number, quantity:number, buyout:number)
----@overload fun(item:table, duration:number, quantity:number)
+---@param bid BigUInteger @ [OPTIONAL]
+---@param buyout BigUInteger @ [OPTIONAL]
 function C_AuctionHouse.ConfirmPostItem(item, duration, quantity, bid, buyout) end
 
 ---@return boolean favoritesAreAvailable
@@ -56,15 +54,15 @@ function C_AuctionHouse.GetAuctionInfoByID(auctionID) end
 ---@return number subClasses
 function C_AuctionHouse.GetAuctionItemSubClasses(classID) end
 
----@param item table 
+---@param item ItemLocation 
 ---@return number listCount
 function C_AuctionHouse.GetAvailablePostCount(item) end
 
----@param bidIndex number 
+---@param bidIndex luaIndex 
 ---@return BidInfo|nil bid
 function C_AuctionHouse.GetBidInfo(bidIndex) end
 
----@param bidTypeIndex number 
+---@param bidTypeIndex luaIndex 
 ---@return ItemKey|nil typeItemKey
 function C_AuctionHouse.GetBidType(bidTypeIndex) end
 
@@ -75,11 +73,11 @@ function C_AuctionHouse.GetBids() end
 function C_AuctionHouse.GetBrowseResults() end
 
 ---@param ownedAuctionID number 
----@return number cancelCost
+---@return BigUInteger cancelCost
 function C_AuctionHouse.GetCancelCost(ownedAuctionID) end
 
 ---@param itemID number 
----@param commoditySearchResultIndex number 
+---@param commoditySearchResultIndex luaIndex 
 ---@return CommoditySearchResultInfo|nil result
 function C_AuctionHouse.GetCommoditySearchResultInfo(itemID, commoditySearchResultIndex) end
 
@@ -94,11 +92,11 @@ function C_AuctionHouse.GetExtraBrowseInfo(itemKey) end
 ---@return AuctionHouseFilterGroup filterGroups
 function C_AuctionHouse.GetFilterGroups() end
 
----@param item table 
+---@param item ItemLocation 
 ---@return ItemCommodityStatus isCommodity
 function C_AuctionHouse.GetItemCommodityStatus(item) end
 
----@param item table 
+---@param item ItemLocation 
 ---@return ItemKey itemKey
 function C_AuctionHouse.GetItemKeyFromItem(item) end
 
@@ -112,7 +110,7 @@ function C_AuctionHouse.GetItemKeyInfo(itemKey, restrictQualityToFilter) end
 function C_AuctionHouse.GetItemKeyRequiredLevel(itemKey) end
 
 ---@param itemKey ItemKey 
----@param itemSearchResultIndex number 
+---@param itemSearchResultIndex luaIndex 
 ---@return ItemSearchResultInfo|nil result
 function C_AuctionHouse.GetItemSearchResultInfo(itemKey, itemSearchResultIndex) end
 
@@ -120,28 +118,28 @@ function C_AuctionHouse.GetItemSearchResultInfo(itemKey, itemSearchResultIndex) 
 ---@return number totalQuantity
 function C_AuctionHouse.GetItemSearchResultsQuantity(itemKey) end
 
----@return number|nil maxBid
+---@return BigUInteger|nil maxBid
 function C_AuctionHouse.GetMaxBidItemBid() end
 
----@return number|nil maxBuyout
+---@return BigUInteger|nil maxBuyout
 function C_AuctionHouse.GetMaxBidItemBuyout() end
 
 ---@param itemID number 
----@return number|nil maxUnitPrice
+---@return BigUInteger|nil maxUnitPrice
 function C_AuctionHouse.GetMaxCommoditySearchResultPrice(itemID) end
 
 ---@param itemKey ItemKey 
----@return number|nil maxBid
+---@return BigUInteger|nil maxBid
 function C_AuctionHouse.GetMaxItemSearchResultBid(itemKey) end
 
 ---@param itemKey ItemKey 
----@return number|nil maxBuyout
+---@return BigUInteger|nil maxBuyout
 function C_AuctionHouse.GetMaxItemSearchResultBuyout(itemKey) end
 
----@return number|nil maxBid
+---@return BigUInteger|nil maxBid
 function C_AuctionHouse.GetMaxOwnedAuctionBid() end
 
----@return number|nil maxBuyout
+---@return BigUInteger|nil maxBuyout
 function C_AuctionHouse.GetMaxOwnedAuctionBuyout() end
 
 ---@return number numBidTypes
@@ -167,11 +165,11 @@ function C_AuctionHouse.GetNumOwnedAuctions() end
 ---@return number numReplicateItems
 function C_AuctionHouse.GetNumReplicateItems() end
 
----@param ownedAuctionIndex number 
+---@param ownedAuctionIndex luaIndex 
 ---@return OwnedAuctionInfo|nil ownedAuction
 function C_AuctionHouse.GetOwnedAuctionInfo(ownedAuctionIndex) end
 
----@param ownedAuctionTypeIndex number 
+---@param ownedAuctionTypeIndex luaIndex 
 ---@return ItemKey|nil typeItemKey
 function C_AuctionHouse.GetOwnedAuctionType(ownedAuctionTypeIndex) end
 
@@ -186,7 +184,7 @@ function C_AuctionHouse.GetQuoteDurationRemaining() end
 function C_AuctionHouse.GetReplicateItemBattlePetInfo(index) end
 
 ---@param index number 
----@return string|nil, number|nil, number, number, boolean|nil, number, string|nil, number, number, number, number, string|nil, string|nil, string|nil, string|nil, number, number, boolean|nil name, texture, count, qualityID, usable, level, levelType, minBid, minIncrement, buyoutPrice, bidAmount, highBidder, bidderFullName, owner, ownerFullName, saleStatus, itemID, hasAllInfo
+---@return string|nil, fileID|nil, number, number, boolean|nil, number, string|nil, BigUInteger, BigUInteger, BigUInteger, BigUInteger, string|nil, string|nil, string|nil, string|nil, number, number, boolean|nil name, texture, count, qualityID, usable, level, levelType, minBid, minIncrement, buyoutPrice, bidAmount, highBidder, bidderFullName, owner, ownerFullName, saleStatus, itemID, hasAllInfo
 function C_AuctionHouse.GetReplicateItemInfo(index) end
 
 ---@param index number 
@@ -232,7 +230,7 @@ function C_AuctionHouse.HasSearchResults(itemKey) end
 ---@return boolean isFavorite
 function C_AuctionHouse.IsFavoriteItem(itemKey) end
 
----@param item table 
+---@param item ItemLocation 
 ---@param displayError boolean 
 ---@return boolean valid
 function C_AuctionHouse.IsSellItemValid(item, displayError) end
@@ -248,23 +246,21 @@ function C_AuctionHouse.IsThrottledMessageSystemReady() end
 function C_AuctionHouse.MakeItemKey(itemID, itemLevel, itemSuffix, battlePetSpeciesID) end
 
 ---@param auctionID number 
----@param bidAmount number 
+---@param bidAmount BigUInteger 
 function C_AuctionHouse.PlaceBid(auctionID, bidAmount) end
 
----@param item table 
----@param duration number 
+---@param item ItemLocation 
+---@param duration luaIndex 
 ---@param quantity number 
----@param unitPrice number 
+---@param unitPrice BigUInteger 
 ---@return boolean needsConfirmation
 function C_AuctionHouse.PostCommodity(item, duration, quantity, unitPrice) end
 
----@param item table 
----@param duration number 
+---@param item ItemLocation 
+---@param duration luaIndex 
 ---@param quantity number 
----@param bid number @ [OPTIONAL]
----@param buyout number @ [OPTIONAL]
----@overload fun(item:table, duration:number, quantity:number, buyout:number)
----@overload fun(item:table, duration:number, quantity:number)
+---@param bid BigUInteger @ [OPTIONAL]
+---@param buyout BigUInteger @ [OPTIONAL]
 ---@return boolean needsConfirmation
 function C_AuctionHouse.PostItem(item, duration, quantity, bid, buyout) end
 
@@ -281,8 +277,6 @@ function C_AuctionHouse.RefreshCommoditySearchResults(itemID) end
 ---@param itemKey ItemKey 
 ---@param minLevelFilter number @ [OPTIONAL]
 ---@param maxLevelFilter number @ [OPTIONAL]
----@overload fun(itemKey:ItemKey, maxLevelFilter:number)
----@overload fun(itemKey:ItemKey)
 function C_AuctionHouse.RefreshItemSearchResults(itemKey, minLevelFilter, maxLevelFilter) end
 
 --- This function should be used in place of an 'allItem' QueryAuctionItems call to query the entire auction house.
@@ -301,7 +295,7 @@ function C_AuctionHouse.RequestMoreCommoditySearchResults(itemID) end
 function C_AuctionHouse.RequestMoreItemSearchResults(itemKey) end
 
 ---@param auctionID number 
----@return string bidderName
+---@return cstring bidderName
 function C_AuctionHouse.RequestOwnedAuctionBidderInfo(auctionID) end
 
 ---@param sorts AuctionHouseSortType 
@@ -337,94 +331,94 @@ function C_AuctionHouse.SetFavoriteItem(itemKey, setFavorite) end
 function C_AuctionHouse.StartCommoditiesPurchase(itemID, quantity) end
 
 ---@class AuctionHouseFilterCategory
-local AuctionHouseFilterCategory = {}
+AuctionHouseFilterCategory = {}
 AuctionHouseFilterCategory.Uncategorized = 0
 AuctionHouseFilterCategory.Equipment = 1
 AuctionHouseFilterCategory.Rarity = 2
 
 ---@class AuctionStatus
-local AuctionStatus = {}
+AuctionStatus = {}
 AuctionStatus.Active = 0
 AuctionStatus.Sold = 1
 
 ---@class ItemCommodityStatus
-local ItemCommodityStatus = {}
+ItemCommodityStatus = {}
 ItemCommodityStatus.Unknown = 0
 ItemCommodityStatus.Item = 1
 ItemCommodityStatus.Commodity = 2
 
 ---@class AuctionHouseBrowseQuery
 ---@field searchString string 
----@field sorts table 
+---@field sorts AuctionHouseSortType 
 ---@field minLevel number|nil 
 ---@field maxLevel number|nil 
----@field filters table|nil 
----@field itemClassFilters table|nil 
-local AuctionHouseBrowseQuery = {}
+---@field filters AuctionHouseFilter|nil 
+---@field itemClassFilters AuctionHouseItemClassFilter|nil 
+AuctionHouseBrowseQuery = {}
 
 ---@class AuctionHouseFilterGroup
 ---@field category AuctionHouseFilterCategory 
----@field filters table 
-local AuctionHouseFilterGroup = {}
+---@field filters AuctionHouseFilter 
+AuctionHouseFilterGroup = {}
 
 ---@class AuctionHouseItemClassFilter
 ---@field classID number 
 ---@field subClassID number|nil 
 ---@field inventoryType InventoryType|nil 
-local AuctionHouseItemClassFilter = {}
+AuctionHouseItemClassFilter = {}
 
 ---@class AuctionHouseSortType
 ---@field sortOrder AuctionHouseSortOrder 
----@field reverseSort bool 
-local AuctionHouseSortType = {}
+---@field reverseSort boolean 
+AuctionHouseSortType = {}
 
 ---@class AuctionInfo
 ---@field itemKey ItemKey 
 ---@field itemLink string|nil 
----@field minBid number|nil 
----@field bidAmount number|nil 
----@field buyoutAmount number|nil 
----@field bidder string|nil 
-local AuctionInfo = {}
+---@field minBid WOWMONEY|nil 
+---@field bidAmount WOWMONEY|nil 
+---@field buyoutAmount WOWMONEY|nil 
+---@field bidder WOWGUID|nil 
+AuctionInfo = {}
 
 ---@class BidInfo
 ---@field auctionID number 
 ---@field itemKey ItemKey 
 ---@field itemLink string|nil 
 ---@field timeLeft AuctionHouseTimeLeftBand 
----@field minBid number|nil 
----@field bidAmount number|nil 
----@field buyoutAmount number|nil 
----@field bidder string|nil 
-local BidInfo = {}
+---@field minBid BigUInteger|nil 
+---@field bidAmount BigUInteger|nil 
+---@field buyoutAmount BigUInteger|nil 
+---@field bidder WOWGUID|nil 
+BidInfo = {}
 
 ---@class BrowseResultInfo
 ---@field itemKey ItemKey 
 ---@field appearanceLink string|nil 
 ---@field totalQuantity number 
----@field minPrice number 
----@field containsOwnerItem bool 
-local BrowseResultInfo = {}
+---@field minPrice BigUInteger 
+---@field containsOwnerItem boolean 
+BrowseResultInfo = {}
 
 ---@class CommoditySearchResultInfo
 ---@field itemID number 
 ---@field quantity number 
----@field unitPrice number 
+---@field unitPrice BigUInteger 
 ---@field auctionID number 
----@field owners table 
+---@field owners string 
 ---@field totalNumberOfOwners number 
 ---@field timeLeftSeconds number|nil 
 ---@field numOwnerItems number 
----@field containsOwnerItem bool 
----@field containsAccountItem bool 
-local CommoditySearchResultInfo = {}
+---@field containsOwnerItem boolean 
+---@field containsAccountItem boolean 
+CommoditySearchResultInfo = {}
 
 ---@class ItemKey
 ---@field itemID number 
 ---@field itemLevel number 
 ---@field itemSuffix number 
 ---@field battlePetSpeciesID number 
-local ItemKey = {}
+ItemKey = {}
 
 ---@class ItemKeyInfo
 ---@field itemID number 
@@ -432,30 +426,30 @@ local ItemKey = {}
 ---@field itemName string 
 ---@field battlePetLink string|nil 
 ---@field appearanceLink string|nil 
----@field quality number 
+---@field quality ItemQuality 
 ---@field iconFileID number 
----@field isPet bool 
----@field isCommodity bool 
----@field isEquipment bool 
-local ItemKeyInfo = {}
+---@field isPet boolean 
+---@field isCommodity boolean 
+---@field isEquipment boolean 
+ItemKeyInfo = {}
 
 ---@class ItemSearchResultInfo
 ---@field itemKey ItemKey 
----@field owners table 
+---@field owners string 
 ---@field totalNumberOfOwners number 
 ---@field timeLeft AuctionHouseTimeLeftBand 
 ---@field auctionID number 
 ---@field quantity number 
 ---@field itemLink string|nil 
----@field containsOwnerItem bool 
----@field containsAccountItem bool 
----@field containsSocketedItem bool 
----@field bidder string|nil 
----@field minBid number|nil 
----@field bidAmount number|nil 
----@field buyoutAmount number|nil 
+---@field containsOwnerItem boolean 
+---@field containsAccountItem boolean 
+---@field containsSocketedItem boolean 
+---@field bidder WOWGUID|nil 
+---@field minBid BigUInteger|nil 
+---@field bidAmount BigUInteger|nil 
+---@field buyoutAmount BigUInteger|nil 
 ---@field timeLeftSeconds number|nil 
-local ItemSearchResultInfo = {}
+ItemSearchResultInfo = {}
 
 ---@class OwnedAuctionInfo
 ---@field auctionID number 
@@ -465,29 +459,29 @@ local ItemSearchResultInfo = {}
 ---@field quantity number 
 ---@field timeLeftSeconds number|nil 
 ---@field timeLeft AuctionHouseTimeLeftBand|nil 
----@field bidAmount number|nil 
----@field buyoutAmount number|nil 
+---@field bidAmount BigUInteger|nil 
+---@field buyoutAmount BigUInteger|nil 
 ---@field bidder string|nil 
-local OwnedAuctionInfo = {}
+OwnedAuctionInfo = {}
 
 ---@class ReplicateItemInfo
 ---@field name string|nil 
----@field texture number|nil 
+---@field texture fileID|nil 
 ---@field count number 
 ---@field qualityID number 
----@field usable bool|nil 
+---@field usable boolean|nil 
 ---@field level number 
 ---@field levelType string|nil 
----@field minBid number 
----@field minIncrement number 
----@field buyoutPrice number 
----@field bidAmount number 
+---@field minBid BigUInteger 
+---@field minIncrement BigUInteger 
+---@field buyoutPrice BigUInteger 
+---@field bidAmount BigUInteger 
 ---@field highBidder string|nil 
 ---@field bidderFullName string|nil 
 ---@field owner string|nil 
 ---@field ownerFullName string|nil 
 ---@field saleStatus number 
 ---@field itemID number 
----@field hasAllInfo bool|nil 
-local ReplicateItemInfo = {}
+---@field hasAllInfo boolean|nil 
+ReplicateItemInfo = {}
 

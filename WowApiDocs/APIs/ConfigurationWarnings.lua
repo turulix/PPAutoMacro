@@ -1,4 +1,4 @@
----@class ConfigurationWarnings
+---@class C_ConfigurationWarnings @ConfigurationWarnings
 C_ConfigurationWarnings = {}
 
 ---@param configurationWarning ConfigurationWarning 
@@ -17,7 +17,7 @@ function C_ConfigurationWarnings.GetConfigurationWarnings(includeSeenWarnings) e
 function C_ConfigurationWarnings.SetConfigurationWarningSeen(configurationWarning) end
 
 ---@class ConfigurationWarning
-local ConfigurationWarning = {}
+ConfigurationWarning = {}
 ConfigurationWarning.ShaderModelWillBeOutdated = 0
 ConfigurationWarning.ShaderModelIsOutdated = 1
 ConfigurationWarning.ConsoleDeviceSseOutdated = 2

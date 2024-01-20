@@ -1,4 +1,4 @@
----@class CovenantSanctumUI
+---@class C_CovenantSanctumUI @CovenantSanctumUI
 C_CovenantSanctumUI = {}
 
 ---@return boolean canAccess
@@ -53,14 +53,14 @@ function C_CovenantSanctumUI.RequestCatchUpState() end
 ---@field garrTalentTreeID number 
 ---@field featureType number 
 ---@field uiOrder number 
-local CovenantSanctumFeatureInfo = {}
+CovenantSanctumFeatureInfo = {}
 
 ---@class CovenantSanctumRenownLevelInfo
 ---@field level number 
----@field locked bool 
----@field isMilestone bool 
----@field isCapstone bool 
-local CovenantSanctumRenownLevelInfo = {}
+---@field locked boolean 
+---@field isMilestone boolean 
+---@field isCapstone boolean 
+CovenantSanctumRenownLevelInfo = {}
 
 ---@class CovenantSanctumRenownRewardInfo
 ---@field uiOrder number 
@@ -72,9 +72,9 @@ local CovenantSanctumRenownLevelInfo = {}
 ---@field titleMaskID number|nil 
 ---@field garrFollowerID number|nil 
 ---@field transmogIllusionSourceID number|nil 
----@field icon number|nil 
----@field name string|nil 
----@field description string|nil 
----@field toastDescription string|nil 
-local CovenantSanctumRenownRewardInfo = {}
+---@field icon fileID|nil 
+---@field name cstring|nil 
+---@field description cstring|nil 
+---@field toastDescription cstring|nil 
+CovenantSanctumRenownRewardInfo = {}
 

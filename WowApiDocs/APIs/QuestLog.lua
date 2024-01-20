@@ -1,17 +1,15 @@
----@class QuestLog
+---@class C_QuestLog @QuestLog
 C_QuestLog = {}
 
 function C_QuestLog.AbandonQuest() end
 
 ---@param questID number 
 ---@param watchType QuestWatchType @ [OPTIONAL]
----@overload fun(questID:number)
 ---@return boolean wasWatched
 function C_QuestLog.AddQuestWatch(questID, watchType) end
 
 ---@param questID number 
 ---@param watchType QuestWatchType @ [OPTIONAL]
----@overload fun(questID:number)
 ---@return boolean wasWatched
 function C_QuestLog.AddWorldQuestWatch(questID, watchType) end
 
@@ -48,13 +46,13 @@ function C_QuestLog.GetBountySetInfoForMapID(uiMapID) end
 ---@return number, boolean distanceSq, onContinent
 function C_QuestLog.GetDistanceSqToQuest(questID) end
 
----@param questLogIndex number 
+---@param questLogIndex luaIndex 
 ---@return QuestInfo|nil info
 function C_QuestLog.GetInfo(questLogIndex) end
 
 --- Only returns a log index for actual quests, not headers
 ---@param questID number 
----@return number|nil questLogIndex
+---@return luaIndex|nil questLogIndex
 function C_QuestLog.GetLogIndexForQuestID(questID) end
 
 ---@return number uiMapID
@@ -107,15 +105,15 @@ function C_QuestLog.GetQuestDetailsTheme(questID) end
 function C_QuestLog.GetQuestDifficultyLevel(questID) end
 
 --- Only returns a questID for actual quests, not headers
----@param questLogIndex number 
+---@param questLogIndex luaIndex 
 ---@return number|nil questID
 function C_QuestLog.GetQuestIDForLogIndex(questLogIndex) end
 
----@param questWatchIndex number 
+---@param questWatchIndex luaIndex 
 ---@return number|nil questID
 function C_QuestLog.GetQuestIDForQuestWatchIndex(questWatchIndex) end
 
----@param questWatchIndex number 
+---@param questWatchIndex luaIndex 
 ---@return number|nil questID
 function C_QuestLog.GetQuestIDForWorldQuestWatchIndex(questWatchIndex) end
 
@@ -123,9 +121,8 @@ function C_QuestLog.GetQuestIDForWorldQuestWatchIndex(questWatchIndex) end
 ---@return QuestReputationRewardInfo reputationRewards
 function C_QuestLog.GetQuestLogMajorFactionReputationRewards(questID) end
 
----@param questLogIndex number @ [OPTIONAL]
----@overload fun()
----@return number, string, string, number, number|nil portraitGiver, portraitGiverText, portraitGiverName, portraitGiverMount, portraitGiverModelSceneID
+---@param questLogIndex luaIndex @ [OPTIONAL]
+---@return number, cstring, cstring, number, number|nil portraitGiver, portraitGiverText, portraitGiverName, portraitGiverMount, portraitGiverModelSceneID
 function C_QuestLog.GetQuestLogPortraitGiver(questLogIndex) end
 
 ---@param questID number 
@@ -150,7 +147,6 @@ function C_QuestLog.GetQuestsOnMap(uiMapID) end
 
 --- Uses the selected quest if no questID is provided
 ---@param questID number @ [OPTIONAL]
----@overload fun()
 ---@return number requiredMoney
 function C_QuestLog.GetRequiredMoney(questID) end
 
@@ -166,13 +162,13 @@ function C_QuestLog.GetSuggestedGroupSize(questID) end
 function C_QuestLog.GetTimeAllowed(questID) end
 
 --- Returns a valid title for anything that is in the quest log.
----@param questLogIndex number 
----@return string|nil title
+---@param questLogIndex luaIndex 
+---@return cstring|nil title
 function C_QuestLog.GetTitleForLogIndex(questLogIndex) end
 
 --- Only returns a valid title for quests, header titles cannot be discovered using this.
 ---@param questID number 
----@return string|nil title
+---@return cstring|nil title
 function C_QuestLog.GetTitleForQuestID(questID) end
 
 ---@param uiMapID number 
@@ -193,6 +189,10 @@ function C_QuestLog.IsComplete(questID) end
 ---@param questID number 
 ---@return boolean isFailed
 function C_QuestLog.IsFailed(questID) end
+
+---@param questID number 
+---@return boolean isImportant
+function C_QuestLog.IsImportantQuest(questID) end
 
 ---@param questID number 
 ---@return boolean isLegendaryQuest
@@ -259,7 +259,7 @@ function C_QuestLog.IsRepeatableQuest(questID) end
 ---@return boolean isThreat
 function C_QuestLog.IsThreatQuest(questID) end
 
----@param unit string 
+---@param unit UnitToken 
 ---@param questID number 
 ---@return boolean isOnQuest
 function C_QuestLog.IsUnitOnQuest(unit, questID) end
@@ -315,12 +315,12 @@ function C_QuestLog.ShouldShowQuestRewards(questID) end
 
 function C_QuestLog.SortQuestWatches() end
 
----@param unit string 
+---@param unit UnitToken 
 ---@return boolean isRelatedToActiveQuest
 function C_QuestLog.UnitIsRelatedToActiveQuest(unit) end
 
 ---@class MapOverlayDisplayLocation
-local MapOverlayDisplayLocation = {}
+MapOverlayDisplayLocation = {}
 MapOverlayDisplayLocation.Default = 0
 MapOverlayDisplayLocation.BottomLeft = 1
 MapOverlayDisplayLocation.TopLeft = 2
@@ -329,13 +329,13 @@ MapOverlayDisplayLocation.TopRight = 4
 MapOverlayDisplayLocation.Hidden = 5
 
 ---@class QuestFrequency
-local QuestFrequency = {}
+QuestFrequency = {}
 QuestFrequency.Default = 0
 QuestFrequency.Daily = 1
 QuestFrequency.Weekly = 2
 
 ---@class QuestTag
-local QuestTag = {}
+QuestTag = {}
 QuestTag.Group = 1
 QuestTag.PvP = 41
 QuestTag.Raid = 62
@@ -349,71 +349,73 @@ QuestTag.Account = 102
 QuestTag.CombatAlly = 266
 
 ---@class QuestWatchType
-local QuestWatchType = {}
+QuestWatchType = {}
 QuestWatchType.Automatic = 0
 QuestWatchType.Manual = 1
 
 ---@class WorldQuestQuality
-local WorldQuestQuality = {}
+WorldQuestQuality = {}
 WorldQuestQuality.Common = 0
 WorldQuestQuality.Rare = 1
 WorldQuestQuality.Epic = 2
 
 ---@class QuestInfo
 ---@field title string 
----@field questLogIndex number 
+---@field questLogIndex luaIndex 
 ---@field questID number 
 ---@field campaignID number|nil 
 ---@field level number 
 ---@field difficultyLevel number 
 ---@field suggestedGroup number 
 ---@field frequency QuestFrequency|nil 
----@field isHeader bool 
----@field useMinimalHeader bool 
----@field isCollapsed bool 
----@field startEvent bool 
----@field isTask bool 
----@field isBounty bool 
----@field isStory bool 
----@field isScaling bool 
----@field isOnMap bool 
----@field hasLocalPOI bool 
----@field isHidden bool 
----@field isAutoComplete bool 
----@field overridesSortOrder bool 
----@field readyForTranslation bool 
-local QuestInfo = {}
+---@field isHeader boolean 
+---@field useMinimalHeader boolean 
+---@field isCollapsed boolean 
+---@field startEvent boolean 
+---@field isTask boolean 
+---@field isBounty boolean 
+---@field isStory boolean 
+---@field isScaling boolean 
+---@field isOnMap boolean 
+---@field hasLocalPOI boolean 
+---@field isHidden boolean 
+---@field isAutoComplete boolean 
+---@field overridesSortOrder boolean 
+---@field readyForTranslation boolean 
+---@field isLegendarySort boolean 
+---@field isInternalOnly boolean 
+QuestInfo = {}
 
 ---@class QuestObjectiveInfo
 ---@field text string 
 ---@field type string 
----@field finished bool 
+---@field finished boolean 
 ---@field numFulfilled number 
 ---@field numRequired number 
-local QuestObjectiveInfo = {}
+QuestObjectiveInfo = {}
 
 ---@class QuestOnMapInfo
 ---@field questID number 
 ---@field x number 
 ---@field y number 
 ---@field type number 
----@field isMapIndicatorQuest bool 
-local QuestOnMapInfo = {}
+---@field isMapIndicatorQuest boolean 
+QuestOnMapInfo = {}
 
 ---@class QuestTagInfo
----@field tagName string 
+---@field tagName cstring 
 ---@field tagID number 
 ---@field worldQuestType number|nil 
 ---@field quality WorldQuestQuality|nil 
 ---@field tradeskillLineID number|nil 
----@field isElite bool|nil 
----@field displayExpiration bool|nil 
-local QuestTagInfo = {}
+---@field isElite boolean|nil 
+---@field displayExpiration boolean|nil 
+QuestTagInfo = {}
 
 ---@class QuestTheme
----@field background string 
----@field seal string 
----@field signature string 
----@field poiIcon string 
-local QuestTheme = {}
+---@field background textureAtlas 
+---@field seal textureAtlas 
+---@field signature cstring 
+---@field poiIcon textureAtlas 
+QuestTheme = {}
 

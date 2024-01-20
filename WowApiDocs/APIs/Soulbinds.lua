@@ -1,18 +1,18 @@
----@class Soulbinds
+---@class C_Soulbinds @Soulbinds
 C_Soulbinds = {}
 
 ---@param soulbindID number 
 function C_Soulbinds.ActivateSoulbind(soulbindID) end
 
 ---@param soulbindID number 
----@return boolean, string|nil result, errorDescription
+---@return boolean, cstring|nil result, errorDescription
 function C_Soulbinds.CanActivateSoulbind(soulbindID) end
 
 ---@return boolean result
 function C_Soulbinds.CanModifySoulbind() end
 
 ---@param soulbindID number 
----@return boolean, string|nil result, errorDescription
+---@return boolean, cstring|nil result, errorDescription
 function C_Soulbinds.CanResetConduitsInSoulbind(soulbindID) end
 
 ---@return boolean result
@@ -70,7 +70,7 @@ function C_Soulbinds.GetConduitDisplayed(nodeID) end
 
 ---@param conduitID number 
 ---@param rank number 
----@return string link
+---@return cstring link
 function C_Soulbinds.GetConduitHyperlink(conduitID, rank) end
 
 ---@param nodeID number 
@@ -131,7 +131,7 @@ function C_Soulbinds.IsConduitInstalled(nodeID) end
 ---@return boolean result
 function C_Soulbinds.IsConduitInstalledInSoulbind(soulbindID, conduitID) end
 
----@param itemInfo string 
+---@param itemInfo ItemInfo 
 ---@return boolean result
 function C_Soulbinds.IsItemConduitByItemInfo(itemInfo) end
 
@@ -160,54 +160,54 @@ function C_Soulbinds.UnmodifyNode(nodeID) end
 ---@field conduitItemLevel number 
 ---@field conduitType SoulbindConduitType 
 ---@field conduitSpecSetID number 
----@field conduitSpecIDs table 
----@field conduitSpecName string|nil 
+---@field conduitSpecIDs number 
+---@field conduitSpecName cstring|nil 
 ---@field covenantID number|nil 
 ---@field conduitItemID number 
-local ConduitCollectionData = {}
+ConduitCollectionData = {}
 
 ---@class SoulbindConduitData
 ---@field conduitID number 
 ---@field conduitRank number 
-local SoulbindConduitData = {}
+SoulbindConduitData = {}
 
 ---@class SoulbindData
 ---@field ID number 
 ---@field covenantID number 
----@field name string 
----@field description string 
----@field textureKit string 
----@field unlocked bool 
----@field cvarIndex number 
+---@field name cstring 
+---@field description cstring 
+---@field textureKit textureKit 
+---@field unlocked boolean 
+---@field cvarIndex luaIndex 
 ---@field tree SoulbindTree 
 ---@field modelSceneData SoulbindModelSceneData 
 ---@field activationSoundKitID number 
----@field playerConditionReason string|nil 
-local SoulbindData = {}
+---@field playerConditionReason cstring|nil 
+SoulbindData = {}
 
 ---@class SoulbindModelSceneData
 ---@field creatureDisplayInfoID number 
 ---@field modelSceneActorID number 
-local SoulbindModelSceneData = {}
+SoulbindModelSceneData = {}
 
 ---@class SoulbindNode
 ---@field ID number 
 ---@field row number 
 ---@field column number 
----@field icon number 
+---@field icon fileID 
 ---@field spellID number 
----@field playerConditionReason string|nil 
+---@field playerConditionReason cstring|nil 
 ---@field conduitID number 
 ---@field conduitRank number 
 ---@field state SoulbindNodeState 
 ---@field conduitType SoulbindConduitType|nil 
----@field parentNodeIDs table 
+---@field parentNodeIDs number 
 ---@field failureRenownRequirement number|nil 
----@field socketEnhanced bool|nil 
-local SoulbindNode = {}
+---@field socketEnhanced boolean|nil 
+SoulbindNode = {}
 
 ---@class SoulbindTree
----@field editable bool 
----@field nodes table 
-local SoulbindTree = {}
+---@field editable boolean 
+---@field nodes SoulbindNode 
+SoulbindTree = {}
 

@@ -1,4 +1,4 @@
----@class MajorFactionsUI
+---@class C_MajorFactions @MajorFactionsUI
 C_MajorFactions = {}
 
 ---@param majorFactionID number 
@@ -17,7 +17,6 @@ function C_MajorFactions.GetFeatureAbilities() end
 function C_MajorFactions.GetMajorFactionData(majorFactionID) end
 
 ---@param expansionID number @ [OPTIONAL]
----@overload fun()
 ---@return number majorFactionIDs
 function C_MajorFactions.GetMajorFactionIDs(expansionID) end
 
@@ -47,33 +46,33 @@ function C_MajorFactions.IsWeeklyRenownCapped(majorFactionID) end
 function C_MajorFactions.RequestCatchUpState() end
 
 ---@class MajorFactionData
----@field name string 
+---@field name cstring 
 ---@field factionID number 
 ---@field expansionID number 
 ---@field bountySetID number 
----@field isUnlocked bool 
----@field unlockDescription string|nil 
----@field unlockOrder number 
+---@field isUnlocked boolean 
+---@field unlockDescription cstring|nil 
+---@field uiPriority number 
 ---@field renownLevel number 
 ---@field renownReputationEarned number 
 ---@field renownLevelThreshold number 
----@field textureKit string 
+---@field textureKit textureKit 
 ---@field celebrationSoundKit number 
 ---@field renownFanfareSoundKitID number 
-local MajorFactionData = {}
+MajorFactionData = {}
 
 ---@class MajorFactionFeatureAbilityInfo
 ---@field featureAbilityType number 
 ---@field uiOrder number 
-local MajorFactionFeatureAbilityInfo = {}
+MajorFactionFeatureAbilityInfo = {}
 
 ---@class MajorFactionRenownLevelInfo
 ---@field factionID number 
 ---@field level number 
----@field locked bool 
----@field isMilestone bool 
----@field isCapstone bool 
-local MajorFactionRenownLevelInfo = {}
+---@field locked boolean 
+---@field isMilestone boolean 
+---@field isCapstone boolean 
+MajorFactionRenownLevelInfo = {}
 
 ---@class MajorFactionRenownRewardInfo
 ---@field renownRewardID number 
@@ -85,9 +84,9 @@ local MajorFactionRenownLevelInfo = {}
 ---@field transmogSetID number|nil 
 ---@field titleMaskID number|nil 
 ---@field transmogIllusionSourceID number|nil 
----@field icon number|nil 
----@field name string|nil 
----@field description string|nil 
----@field toastDescription string|nil 
-local MajorFactionRenownRewardInfo = {}
+---@field icon fileID|nil 
+---@field name cstring|nil 
+---@field description cstring|nil 
+---@field toastDescription cstring|nil 
+MajorFactionRenownRewardInfo = {}
 

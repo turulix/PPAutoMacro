@@ -1,4 +1,4 @@
----@class FogOfWar
+---@class C_FogOfWar @FogOfWar
 C_FogOfWar = {}
 
 ---@param uiMapID number 
@@ -11,8 +11,8 @@ function C_FogOfWar.GetFogOfWarInfo(fogOfWarID) end
 
 ---@class FogOfWarInfo
 ---@field fogOfWarID number 
----@field backgroundAtlas string 
----@field maskAtlas string 
+---@field backgroundAtlas textureAtlas 
+---@field maskAtlas textureAtlas 
 ---@field maskScalar number 
-local FogOfWarInfo = {}
+FogOfWarInfo = {}
 

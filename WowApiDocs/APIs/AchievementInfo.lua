@@ -1,4 +1,4 @@
----@class AchievementInfo
+---@class C_AchievementInfo @AchievementInfo
 C_AchievementInfo = {}
 
 ---@param achievementID number 
@@ -17,6 +17,6 @@ function C_AchievementInfo.IsGuildAchievement(achievementId) end
 ---@return boolean isValidAchievement
 function C_AchievementInfo.IsValidAchievement(achievementId) end
 
----@param textureObject table 
+---@param textureObject SimpleTexture 
 function C_AchievementInfo.SetPortraitTexture(textureObject) end
 

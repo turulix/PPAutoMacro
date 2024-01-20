@@ -1,22 +1,22 @@
----@class ModelInfo
+---@class C_ModelInfo @ModelInfo
 C_ModelInfo = {}
 
 --- This function does nothing in public clients
----@param modelSceneFrame table 
+---@param modelSceneFrame ModelSceneFrame 
 ---@param modelSceneID number 
 function C_ModelInfo.AddActiveModelScene(modelSceneFrame, modelSceneID) end
 
 --- This function does nothing in public clients
----@param modelSceneFrameActor table 
+---@param modelSceneFrameActor ModelSceneFrameActor 
 ---@param modelSceneActorID number 
 function C_ModelInfo.AddActiveModelSceneActor(modelSceneFrameActor, modelSceneActorID) end
 
 --- This function does nothing in public clients
----@param modelSceneFrame table 
+---@param modelSceneFrame ModelSceneFrame 
 function C_ModelInfo.ClearActiveModelScene(modelSceneFrame) end
 
 --- This function does nothing in public clients
----@param modelSceneFrameActor table 
+---@param modelSceneFrameActor ModelSceneFrameActor 
 function C_ModelInfo.ClearActiveModelSceneActor(modelSceneFrameActor) end
 
 ---@param modelActorDisplayID number 
@@ -32,22 +32,15 @@ function C_ModelInfo.GetModelSceneActorInfoByID(modelActorID) end
 function C_ModelInfo.GetModelSceneCameraInfoByID(modelSceneCameraID) end
 
 ---@param modelSceneID number 
----@return ModelSceneType, number, number modelSceneType, modelCameraIDs, modelActorsIDs
+---@return ModelSceneType, number, number, number modelSceneType, modelCameraIDs, modelActorsIDs, flags
 function C_ModelInfo.GetModelSceneInfoByID(modelSceneID) end
 
----@class ItemTryOnReason
-local ItemTryOnReason = {}
-ItemTryOnReason.Success = 0
-ItemTryOnReason.WrongRace = 1
-ItemTryOnReason.NotEquippable = 2
-ItemTryOnReason.DataPending = 3
-
 ---@class ModelSceneSetting
-local ModelSceneSetting = {}
+ModelSceneSetting = {}
 ModelSceneSetting.AlignLightToOrbitDelta = 1
 
 ---@class ModelSceneType
-local ModelSceneType = {}
+ModelSceneType = {}
 ModelSceneType.MountJournal = 0
 ModelSceneType.PetJournalCard = 1
 ModelSceneType.ShopCard = 2
@@ -69,6 +62,13 @@ ModelSceneType.WorldMapThreat = 17
 ModelSceneType.Soulbinds = 18
 ModelSceneType.JailersTowerAnimaGlow = 19
 
+---@class UIModelSceneActorFlag
+UIModelSceneActorFlag = {}
+UIModelSceneActorFlag.Deprecated1 = 1
+UIModelSceneActorFlag.UseCenterForOriginX = 2
+UIModelSceneActorFlag.UseCenterForOriginY = 4
+UIModelSceneActorFlag.UseCenterForOriginZ = 8
+
 ---@class UIModelSceneActorDisplayInfo
 ---@field animation number 
 ---@field animationVariation number 
@@ -77,37 +77,37 @@ ModelSceneType.JailersTowerAnimaGlow = 19
 ---@field spellVisualKitID number|nil 
 ---@field alpha number 
 ---@field scale number 
-local UIModelSceneActorDisplayInfo = {}
+UIModelSceneActorDisplayInfo = {}
 
 ---@class UIModelSceneActorInfo
 ---@field modelActorID number 
----@field scriptTag string 
----@field position table 
+---@field scriptTag cstring 
+---@field position vector3 
 ---@field yaw number 
 ---@field pitch number 
 ---@field roll number 
 ---@field normalizeScaleAggressiveness number|nil 
----@field useCenterForOriginX bool 
----@field useCenterForOriginY bool 
----@field useCenterForOriginZ bool 
+---@field useCenterForOriginX boolean 
+---@field useCenterForOriginY boolean 
+---@field useCenterForOriginZ boolean 
 ---@field modelActorDisplayID number|nil 
-local UIModelSceneActorInfo = {}
+UIModelSceneActorInfo = {}
 
 ---@class UIModelSceneCameraInfo
 ---@field modelSceneCameraID number 
----@field scriptTag string 
----@field cameraType string 
----@field target table 
+---@field scriptTag cstring 
+---@field cameraType cstring 
+---@field target vector3 
 ---@field yaw number 
 ---@field pitch number 
 ---@field roll number 
 ---@field zoomDistance number 
 ---@field minZoomDistance number 
 ---@field maxZoomDistance number 
----@field zoomedTargetOffset table 
+---@field zoomedTargetOffset vector3 
 ---@field zoomedYawOffset number 
 ---@field zoomedPitchOffset number 
 ---@field zoomedRollOffset number 
 ---@field flags ModelSceneSetting 
-local UIModelSceneCameraInfo = {}
+UIModelSceneCameraInfo = {}
 

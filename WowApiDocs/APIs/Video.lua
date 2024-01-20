@@ -1,16 +1,16 @@
----@class Video
+---@class C_VideoOptions @Video
 C_VideoOptions = {}
 
----@return table size
+---@return vector2 size
 function C_VideoOptions.GetCurrentGameWindowSize() end
 
 ---@param monitor number 
----@return table size
+---@return vector2 size
 function C_VideoOptions.GetDefaultGameWindowSize(monitor) end
 
 ---@param monitor number 
 ---@param fullscreen boolean 
----@return table sizes
+---@return vector2 sizes
 function C_VideoOptions.GetGameWindowSizes(monitor, fullscreen) end
 
 ---@return GxAdapterInfoDetails adapters
@@ -21,7 +21,7 @@ function C_VideoOptions.GetGxAdapterInfo() end
 function C_VideoOptions.SetGameWindowSize(x, y) end
 
 ---@class GraphicsValidationResult
-local GraphicsValidationResult = {}
+GraphicsValidationResult = {}
 GraphicsValidationResult.Supported = 0
 GraphicsValidationResult.Illegal = 1
 GraphicsValidationResult.Unsupported = 2
@@ -67,7 +67,7 @@ GraphicsValidationResult.Unknown = 41
 
 ---@class GxAdapterInfoDetails
 ---@field name string 
----@field isLowPower bool 
----@field isExternal bool 
-local GxAdapterInfoDetails = {}
+---@field isLowPower boolean 
+---@field isExternal boolean 
+GxAdapterInfoDetails = {}
 

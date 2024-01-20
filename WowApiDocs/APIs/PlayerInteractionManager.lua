@@ -1,18 +1,17 @@
----@class PlayerInteractionManager
+---@class C_PlayerInteractionManager @PlayerInteractionManager
 C_PlayerInteractionManager = {}
 
 ---@param type PlayerInteractionType @ [OPTIONAL]
----@overload fun()
 function C_PlayerInteractionManager.ClearInteraction(type) end
 
 ---@param type PlayerInteractionType @ [OPTIONAL]
----@overload fun()
 function C_PlayerInteractionManager.ConfirmationInteraction(type) end
 
 ---@param unit string 
 ---@param exactMatch boolean 
+---@param looseTargeting boolean 
 ---@return boolean success
-function C_PlayerInteractionManager.InteractUnit(unit, exactMatch) end
+function C_PlayerInteractionManager.InteractUnit(unit, exactMatch, looseTargeting) end
 
 ---@param type PlayerInteractionType 
 ---@return boolean interacting

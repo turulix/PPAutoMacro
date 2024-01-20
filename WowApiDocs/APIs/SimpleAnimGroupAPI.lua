@@ -1,10 +1,7 @@
----@param animationType string @ [OPTIONAL]
----@param name string @ [OPTIONAL]
----@param templateName string @ [OPTIONAL]
----@overload fun(name:string, templateName:string)
----@overload fun(templateName:string)
----@overload fun()
----@return table anim
+---@param animationType cstring @ [OPTIONAL]
+---@param name cstring @ [OPTIONAL]
+---@param templateName cstring @ [OPTIONAL]
+---@return SimpleAnim anim
 function CreateAnimation(animationType, name, templateName) end
 
 
@@ -23,31 +20,33 @@ function GetAnimations() end
 function GetDuration() end
 
 
----@return string loopState
+---@return number elapsedSec
+function GetElapsed() end
+
+
+---@return cstring loopState
 function GetLoopState() end
 
 
----@return string loopType
+---@return LoopType loopType
 function GetLooping() end
 
 
 ---@return number progress
 function GetProgress() end
 
----@param scriptTypeName string 
+---@param scriptTypeName cstring 
 ---@param bindingType number @ [OPTIONAL]
----@overload fun(scriptTypeName:string)
----@return function script
+---@return luaFunction script
 function GetScript(scriptTypeName, bindingType) end
 
----@param scriptName string 
+---@param scriptName cstring 
 ---@return boolean hasScript
 function HasScript(scriptName) end
 
----@param scriptTypeName string 
----@param script function 
+---@param scriptTypeName cstring 
+---@param script luaFunction 
 ---@param bindingType number @ [OPTIONAL]
----@overload fun(scriptTypeName:string, script:function)
 function HookScript(scriptTypeName, script, bindingType) end
 
 
@@ -91,15 +90,14 @@ function Restart(reverse, offset) end
 ---@param animationSpeedMultiplier number 
 function SetAnimationSpeedMultiplier(animationSpeedMultiplier) end
 
----@param loopType string 
+---@param loopType LoopType 
 function SetLooping(loopType) end
 
 ---@param play boolean 
 function SetPlaying(play) end
 
----@param scriptTypeName string 
----@param script function @ [OPTIONAL]
----@overload fun(scriptTypeName:string)
+---@param scriptTypeName cstring 
+---@param script luaFunction @ [OPTIONAL]
 function SetScript(scriptTypeName, script) end
 
 ---@param setToFinalAlpha boolean 

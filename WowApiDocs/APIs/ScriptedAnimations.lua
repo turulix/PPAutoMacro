@@ -1,11 +1,11 @@
----@class ScriptedAnimations
+---@class C_ScriptedAnimations @ScriptedAnimations
 C_ScriptedAnimations = {}
 
 ---@return ScriptedAnimationEffect scriptedAnimationEffects
 function C_ScriptedAnimations.GetAllScriptedAnimationEffects() end
 
 ---@class ScriptedAnimationBehavior
-local ScriptedAnimationBehavior = {}
+ScriptedAnimationBehavior = {}
 ScriptedAnimationBehavior.None = 0
 ScriptedAnimationBehavior.TargetShake = 1
 ScriptedAnimationBehavior.TargetKnockBack = 2
@@ -14,11 +14,11 @@ ScriptedAnimationBehavior.SourceCollideWithTarget = 4
 ScriptedAnimationBehavior.UIParentShake = 5
 
 ---@class ScriptedAnimationFlags
-local ScriptedAnimationFlags = {}
+ScriptedAnimationFlags = {}
 ScriptedAnimationFlags.UseTargetAsSource = 1
 
 ---@class ScriptedAnimationTrajectory
-local ScriptedAnimationTrajectory = {}
+ScriptedAnimationTrajectory = {}
 ScriptedAnimationTrajectory.AtSource = 0
 ScriptedAnimationTrajectory.AtTarget = 1
 ScriptedAnimationTrajectory.Straight = 2
@@ -29,7 +29,7 @@ ScriptedAnimationTrajectory.HalfwayBetween = 6
 
 ---@class ScriptedAnimationEffect
 ---@field id number 
----@field visual number 
+---@field visual fileID 
 ---@field visualScale number 
 ---@field duration number 
 ---@field trajectory ScriptedAnimationTrajectory 
@@ -42,7 +42,7 @@ ScriptedAnimationTrajectory.HalfwayBetween = 6
 ---@field animation number 
 ---@field animationSpeed number 
 ---@field alpha number 
----@field useTargetAsSource bool 
+---@field useTargetAsSource boolean 
 ---@field startBehavior ScriptedAnimationBehavior|nil 
 ---@field startSoundKitID number|nil 
 ---@field finishEffectID number|nil 
@@ -55,5 +55,5 @@ ScriptedAnimationTrajectory.HalfwayBetween = 6
 ---@field animationStartOffset number|nil 
 ---@field loopingSoundKitID number|nil 
 ---@field particleOverrideScale number|nil 
-local ScriptedAnimationEffect = {}
+ScriptedAnimationEffect = {}
 

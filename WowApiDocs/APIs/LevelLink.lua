@@ -1,7 +1,7 @@
----@class LevelLink
+---@class C_LevelLink @LevelLink
 C_LevelLink = {}
 
----@param actionID number 
+---@param actionID luaIndex 
 ---@return boolean isLocked
 function C_LevelLink.IsActionLocked(actionID) end
 

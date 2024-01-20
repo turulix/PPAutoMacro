@@ -1,21 +1,32 @@
----@class EncounterJournal
+---@class C_EncounterJournal @EncounterJournal
 C_EncounterJournal = {}
 
 ---@param uiMapID number 
 ---@return DungeonEntranceMapInfo dungeonEntrances
 function C_EncounterJournal.GetDungeonEntrancesForMap(uiMapID) end
 
+---@param linkType JournalLinkTypes 
+---@param ID number 
+---@param displayText string 
+---@param difficultyID number 
+---@return string link
+function C_EncounterJournal.GetEncounterJournalLink(linkType, ID, displayText, difficultyID) end
+
 ---@param uiMapID number 
 ---@return EncounterJournalMapEncounterInfo encounters
 function C_EncounterJournal.GetEncountersOnMap(uiMapID) end
+
+--- GameMap as opposed to UIMap since we use a mapID not a uiMapID.
+---@param mapID number 
+---@return number|nil journalInstanceID
+function C_EncounterJournal.GetInstanceForGameMap(mapID) end
 
 ---@param id number 
 ---@return EncounterJournalItemInfo itemInfo
 function C_EncounterJournal.GetLootInfo(id) end
 
----@param index number 
----@param encounterIndex number @ [OPTIONAL]
----@overload fun(index:number)
+---@param index luaIndex 
+---@param encounterIndex luaIndex @ [OPTIONAL]
 ---@return EncounterJournalItemInfo itemInfo
 function C_EncounterJournal.GetLootInfoByIndex(index, encounterIndex) end
 
@@ -32,13 +43,16 @@ function C_EncounterJournal.GetSectionInfo(sectionID) end
 function C_EncounterJournal.GetSlotFilter() end
 
 ---@param instanceID number @ [OPTIONAL]
----@overload fun()
 ---@return boolean hasLoot
 function C_EncounterJournal.InstanceHasLoot(instanceID) end
 
 ---@param journalEncounterID number 
 ---@return boolean isEncounterComplete
 function C_EncounterJournal.IsEncounterComplete(journalEncounterID) end
+
+function C_EncounterJournal.OnClose() end
+
+function C_EncounterJournal.OnOpen() end
 
 function C_EncounterJournal.ResetSlotFilter() end
 
@@ -51,8 +65,11 @@ function C_EncounterJournal.SetPreviewPvpTier(tier) end
 ---@param filterSlot ItemSlotFilterType 
 function C_EncounterJournal.SetSlotFilter(filterSlot) end
 
+---@param tabIdx number 
+function C_EncounterJournal.SetTab(tabIdx) end
+
 ---@class ItemSlotFilterType
-local ItemSlotFilterType = {}
+ItemSlotFilterType = {}
 ItemSlotFilterType.Head = 0
 ItemSlotFilterType.Neck = 1
 ItemSlotFilterType.Shoulder = 2
@@ -72,12 +89,12 @@ ItemSlotFilterType.NoFilter = 15
 
 ---@class DungeonEntranceMapInfo
 ---@field areaPoiID number 
----@field position table 
----@field name string 
----@field description string 
+---@field position vector2 
+---@field name cstring 
+---@field description cstring 
 ---@field atlasName string 
 ---@field journalInstanceID number 
-local DungeonEntranceMapInfo = {}
+DungeonEntranceMapInfo = {}
 
 ---@class EncounterJournalItemInfo
 ---@field itemID number 
@@ -85,35 +102,35 @@ local DungeonEntranceMapInfo = {}
 ---@field name string|nil 
 ---@field itemQuality string|nil 
 ---@field filterType ItemSlotFilterType|nil 
----@field icon number|nil 
+---@field icon fileID|nil 
 ---@field slot string|nil 
 ---@field armorType string|nil 
 ---@field link string|nil 
----@field handError bool|nil 
----@field weaponTypeError bool|nil 
----@field displayAsPerPlayerLoot bool|nil 
----@field displayAsVeryRare bool|nil 
----@field displayAsExtremelyRare bool|nil 
-local EncounterJournalItemInfo = {}
+---@field handError boolean|nil 
+---@field weaponTypeError boolean|nil 
+---@field displayAsPerPlayerLoot boolean|nil 
+---@field displayAsVeryRare boolean|nil 
+---@field displayAsExtremelyRare boolean|nil 
+EncounterJournalItemInfo = {}
 
 ---@class EncounterJournalMapEncounterInfo
 ---@field encounterID number 
 ---@field mapX number 
 ---@field mapY number 
-local EncounterJournalMapEncounterInfo = {}
+EncounterJournalMapEncounterInfo = {}
 
 ---@class EncounterJournalSectionInfo
 ---@field spellID number 
----@field title string 
+---@field title cstring 
 ---@field description string|nil 
 ---@field headerType number 
----@field abilityIcon number 
+---@field abilityIcon fileID 
 ---@field creatureDisplayID number 
 ---@field uiModelSceneID number 
 ---@field siblingSectionID number|nil 
 ---@field firstChildSectionID number|nil 
----@field filteredByDifficulty bool 
+---@field filteredByDifficulty boolean 
 ---@field link string 
----@field startsOpen bool 
-local EncounterJournalSectionInfo = {}
+---@field startsOpen boolean 
+EncounterJournalSectionInfo = {}
 

@@ -1,15 +1,19 @@
+
+function ClearParentKey() end
+
 ---@param preferParentKey boolean 
 ---@return string debugName
 function GetDebugName(preferParentKey) end
 
 
----@return table parent
+---@return CScriptObject parent
 function GetParent() end
 
 
----@return string parentKey
+---@return cstring parentKey
 function GetParentKey() end
 
----@param parentKey string 
-function SetParentKey(parentKey) end
+---@param parentKey cstring 
+---@param clearOtherKeys boolean 
+function SetParentKey(parentKey, clearOtherKeys) end
 

@@ -1,27 +1,27 @@
----@class GamePad
+---@class C_GamePad @GamePad
 C_GamePad = {}
 
 ---@param platform ClientPlatformType 
----@param mapping string 
+---@param mapping cstring 
 ---@return boolean success
 function C_GamePad.AddSDLMapping(platform, mapping) end
 
 function C_GamePad.ApplyConfigs() end
 
 ---@param axisIndex number 
----@return string|nil configName
+---@return cstring|nil configName
 function C_GamePad.AxisIndexToConfigName(axisIndex) end
 
----@param bindingName string 
+---@param bindingName cstring 
 ---@return number|nil buttonIndex
 function C_GamePad.ButtonBindingToIndex(bindingName) end
 
 ---@param buttonIndex number 
----@return string|nil bindingName
+---@return cstring|nil bindingName
 function C_GamePad.ButtonIndexToBinding(buttonIndex) end
 
 ---@param buttonIndex number 
----@return string|nil configName
+---@return cstring|nil configName
 function C_GamePad.ButtonIndexToConfigName(buttonIndex) end
 
 function C_GamePad.ClearLedColor() end
@@ -46,7 +46,6 @@ function C_GamePad.GetCombinedDeviceID() end
 function C_GamePad.GetConfig(configID) end
 
 ---@param deviceID number @ [OPTIONAL]
----@overload fun()
 ---@return GamePadMappedState|nil state
 function C_GamePad.GetDeviceMappedState(deviceID) end
 
@@ -54,11 +53,10 @@ function C_GamePad.GetDeviceMappedState(deviceID) end
 ---@return GamePadRawState|nil rawState
 function C_GamePad.GetDeviceRawState(deviceID) end
 
----@return table color
+---@return colorRGB color
 function C_GamePad.GetLedColor() end
 
 ---@param deviceID number @ [OPTIONAL]
----@overload fun()
 ---@return GamePadPowerLevel powerLevel
 function C_GamePad.GetPowerLevel(deviceID) end
 
@@ -68,15 +66,15 @@ function C_GamePad.IsEnabled() end
 ---@param config GamePadConfig 
 function C_GamePad.SetConfig(config) end
 
----@param color table 
+---@param color colorRGB 
 function C_GamePad.SetLedColor(color) end
 
----@param vibrationType string 
+---@param vibrationType cstring 
 ---@param intensity number 
 function C_GamePad.SetVibration(vibrationType, intensity) end
 
 ---@param stickIndex number 
----@return string|nil configName
+---@return cstring|nil configName
 function C_GamePad.StickIndexToConfigName(stickIndex) end
 
 function C_GamePad.StopVibration() end
@@ -90,23 +88,23 @@ function C_GamePad.StopVibration() end
 ---@field buttonPos string|nil 
 ---@field buttonNeg string|nil 
 ---@field comment string|nil 
-local GamePadAxisConfig = {}
+GamePadAxisConfig = {}
 
 ---@class GamePadConfig
 ---@field comment string|nil 
 ---@field name string|nil 
 ---@field configID GamePadConfigID 
 ---@field labelStyle string|nil 
----@field rawButtonMappings table 
----@field rawAxisMappings table 
----@field axisConfigs table 
----@field stickConfigs table 
-local GamePadConfig = {}
+---@field rawButtonMappings GamePadRawButtonMapping 
+---@field rawAxisMappings GamePadRawAxisMapping 
+---@field axisConfigs GamePadAxisConfig 
+---@field stickConfigs GamePadStickConfig 
+GamePadConfig = {}
 
 ---@class GamePadConfigID
 ---@field vendorID number|nil 
 ---@field productID number|nil 
-local GamePadConfigID = {}
+GamePadConfigID = {}
 
 ---@class GamePadMappedState
 ---@field name string 
@@ -114,16 +112,16 @@ local GamePadConfigID = {}
 ---@field buttonCount number 
 ---@field axisCount number 
 ---@field stickCount number 
----@field buttons table 
----@field axes table 
----@field sticks table 
-local GamePadMappedState = {}
+---@field buttons boolean 
+---@field axes number 
+---@field sticks GamePadStick 
+GamePadMappedState = {}
 
 ---@class GamePadRawAxisMapping
 ---@field rawIndex number 
 ---@field axis string|nil 
 ---@field comment string|nil 
-local GamePadRawAxisMapping = {}
+GamePadRawAxisMapping = {}
 
 ---@class GamePadRawButtonMapping
 ---@field rawIndex number 
@@ -131,7 +129,7 @@ local GamePadRawAxisMapping = {}
 ---@field axis string|nil 
 ---@field axisValue number|nil 
 ---@field comment string|nil 
-local GamePadRawButtonMapping = {}
+GamePadRawButtonMapping = {}
 
 ---@class GamePadRawState
 ---@field name string 
@@ -139,15 +137,15 @@ local GamePadRawButtonMapping = {}
 ---@field productID number 
 ---@field rawButtonCount number 
 ---@field rawAxisCount number 
----@field rawButtons table 
----@field rawAxes table 
-local GamePadRawState = {}
+---@field rawButtons boolean 
+---@field rawAxes number 
+GamePadRawState = {}
 
 ---@class GamePadStick
 ---@field x number 
 ---@field y number 
 ---@field len number 
-local GamePadStick = {}
+GamePadStick = {}
 
 ---@class GamePadStickConfig
 ---@field stick string 
@@ -157,5 +155,5 @@ local GamePadStick = {}
 ---@field deadzoneX number|nil 
 ---@field deadzoneY number|nil 
 ---@field comment string|nil 
-local GamePadStickConfig = {}
+GamePadStickConfig = {}
 

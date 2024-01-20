@@ -1,43 +1,43 @@
----@class SocialQueue
+---@class C_SocialQueue @SocialQueue
 C_SocialQueue = {}
 
 ---@param allowNonJoinable boolean 
 ---@param allowNonQueuedGroups boolean 
----@return string groupGUIDs
+---@return WOWGUID groupGUIDs
 function C_SocialQueue.GetAllGroups(allowNonJoinable, allowNonQueuedGroups) end
 
 ---@return SocialQueueConfig config
 function C_SocialQueue.GetConfig() end
 
----@param playerGUID string 
----@return string, boolean groupGUID, isSoloQueueParty
+---@param playerGUID WOWGUID 
+---@return WOWGUID, boolean groupGUID, isSoloQueueParty
 function C_SocialQueue.GetGroupForPlayer(playerGUID) end
 
----@param groupGUID string 
----@return boolean, number, boolean, boolean, boolean, boolean, boolean, string canJoin, numQueues, needTank, needHealer, needDamage, isSoloQueueParty, questSessionActive, leaderGUID
+---@param groupGUID WOWGUID 
+---@return boolean, number, boolean, boolean, boolean, boolean, boolean, WOWGUID canJoin, numQueues, needTank, needHealer, needDamage, isSoloQueueParty, questSessionActive, leaderGUID
 function C_SocialQueue.GetGroupInfo(groupGUID) end
 
----@param groupGUID string 
+---@param groupGUID WOWGUID 
 ---@return SocialQueuePlayerInfo groupMembers
 function C_SocialQueue.GetGroupMembers(groupGUID) end
 
----@param groupGUID string 
+---@param groupGUID WOWGUID 
 ---@return SocialQueueGroupQueueInfo queues
 function C_SocialQueue.GetGroupQueues(groupGUID) end
 
----@param groupGUID string 
+---@param groupGUID WOWGUID 
 ---@param applyAsTank boolean 
 ---@param applyAsHealer boolean 
 ---@param applyAsDamage boolean 
 ---@return boolean requestSuccessful
 function C_SocialQueue.RequestToJoin(groupGUID, applyAsTank, applyAsHealer, applyAsDamage) end
 
----@param groupGUID string 
+---@param groupGUID WOWGUID 
 ---@param priority number 
 function C_SocialQueue.SignalToastDisplayed(groupGUID, priority) end
 
 ---@class SocialQueueConfig
----@field TOASTS_DISABLED bool 
+---@field TOASTS_DISABLED boolean 
 ---@field TOAST_DURATION number 
 ---@field DELAY_DURATION number 
 ---@field QUEUE_MULTIPLIER number 
@@ -60,31 +60,31 @@ function C_SocialQueue.SignalToastDisplayed(groupGUID, priority) end
 ---@field THROTTLE_RF_ILVL_SCALING_ABOVE number 
 ---@field THROTTLE_DF_MAX_ITEM_LEVEL number 
 ---@field THROTTLE_DF_BEST_PRIORITY number 
-local SocialQueueConfig = {}
+SocialQueueConfig = {}
 
 ---@class SocialQueueGroupInfo
----@field canJoin bool 
+---@field canJoin boolean 
 ---@field numQueues number 
----@field needTank bool 
----@field needHealer bool 
----@field needDamage bool 
----@field isSoloQueueParty bool 
----@field questSessionActive bool 
----@field leaderGUID string 
-local SocialQueueGroupInfo = {}
+---@field needTank boolean 
+---@field needHealer boolean 
+---@field needDamage boolean 
+---@field isSoloQueueParty boolean 
+---@field questSessionActive boolean 
+---@field leaderGUID WOWGUID 
+SocialQueueGroupInfo = {}
 
 ---@class SocialQueueGroupQueueInfo
 ---@field clientID number 
----@field eligible bool 
----@field needTank bool 
----@field needHealer bool 
----@field needDamage bool 
----@field isAutoAccept bool 
+---@field eligible boolean 
+---@field needTank boolean 
+---@field needHealer boolean 
+---@field needDamage boolean 
+---@field isAutoAccept boolean 
 ---@field queueData QueueSpecificInfo 
-local SocialQueueGroupQueueInfo = {}
+SocialQueueGroupQueueInfo = {}
 
 ---@class SocialQueuePlayerInfo
----@field guid string 
----@field clubId string|nil 
-local SocialQueuePlayerInfo = {}
+---@field guid WOWGUID 
+---@field clubId ClubId|nil 
+SocialQueuePlayerInfo = {}
 

@@ -1,4 +1,4 @@
----@class UIEventToastManagerInfo
+---@class C_EventToastManager @UIEventToastManagerInfo
 C_EventToastManager = {}
 
 ---@param level number 
@@ -11,7 +11,7 @@ function C_EventToastManager.GetNextToastToDisplay() end
 function C_EventToastManager.RemoveCurrentToast() end
 
 ---@class EventToastDisplayType
-local EventToastDisplayType = {}
+EventToastDisplayType = {}
 EventToastDisplayType.NormalSingleLine = 0
 EventToastDisplayType.NormalBlockText = 1
 EventToastDisplayType.NormalTitleAndSubTitle = 2
@@ -21,9 +21,11 @@ EventToastDisplayType.NormalTextWithIconAndRarity = 5
 EventToastDisplayType.Scenario = 6
 EventToastDisplayType.ChallengeMode = 7
 EventToastDisplayType.ScenarioClickExpand = 8
+EventToastDisplayType.WeeklyRewardUnlock = 9
+EventToastDisplayType.WeeklyRewardUpgrade = 10
 
 ---@class EventToastEventType
-local EventToastEventType = {}
+EventToastEventType = {}
 EventToastEventType.LevelUp = 0
 EventToastEventType.LevelUpSpell = 1
 EventToastEventType.LevelUpDungeon = 2
@@ -47,20 +49,26 @@ EventToastEventType.CriteriaUpdated = 19
 EventToastEventType.PvPTierUpdate = 20
 EventToastEventType.SpellLearned = 21
 EventToastEventType.TreasureItem = 22
+EventToastEventType.WeeklyRewardUnlock = 23
+EventToastEventType.WeeklyRewardUpgrade = 24
+
+---@class EventToastFlags
+EventToastFlags = {}
+EventToastFlags.DisableRightClickDismiss = 1
 
 ---@class EventToastInfo
 ---@field eventToastID number 
 ---@field title string 
 ---@field subtitle string 
 ---@field instructionText string 
----@field iconFileID number 
----@field subIcon string|nil 
+---@field iconFileID fileID 
+---@field subIcon textureAtlas|nil 
 ---@field link string 
 ---@field qualityString string|nil 
 ---@field quality number|nil 
 ---@field eventType EventToastEventType 
 ---@field displayType EventToastDisplayType 
----@field uiTextureKit string 
+---@field uiTextureKit textureKit 
 ---@field sortOrder number 
 ---@field time number|nil 
 ---@field uiWidgetSetID number|nil 
@@ -69,9 +77,10 @@ EventToastEventType.TreasureItem = 22
 ---@field subtitleTooltip string|nil 
 ---@field titleTooltipUiWidgetSetID number|nil 
 ---@field subtitleTooltipUiWidgetSetID number|nil 
----@field hideDefaultAtlas bool|nil 
+---@field hideDefaultAtlas boolean|nil 
 ---@field showSoundKitID number|nil 
 ---@field hideSoundKitID number|nil 
----@field colorTint table|nil 
-local EventToastInfo = {}
+---@field colorTint colorRGB|nil 
+---@field flags number 
+EventToastInfo = {}
 

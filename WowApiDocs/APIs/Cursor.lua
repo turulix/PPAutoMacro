@@ -1,11 +1,11 @@
----@class Cursor
+---@class C_Cursor @Cursor
 C_Cursor = {}
 
----@return table item
+---@return ItemLocation item
 function C_Cursor.GetCursorItem() end
 
 ---@class UICursorType
-local UICursorType = {}
+UICursorType = {}
 UICursorType.Default = 0
 UICursorType.Item = 1
 UICursorType.Money = 2
@@ -26,9 +26,10 @@ UICursorType.BattlePet = 17
 UICursorType.Mount = 18
 UICursorType.Toy = 19
 UICursorType.ConduitCollectionItem = 20
+UICursorType.PerksProgramVendorItem = 21
 
 ---@class WorldCursorAnchorType
-local WorldCursorAnchorType = {}
+WorldCursorAnchorType = {}
 WorldCursorAnchorType.None = 0
 WorldCursorAnchorType.Default = 1
 WorldCursorAnchorType.Cursor = 2

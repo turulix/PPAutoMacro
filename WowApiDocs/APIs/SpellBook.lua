@@ -1,4 +1,4 @@
----@class SpellBook
+---@class C_SpellBook @SpellBook
 C_SpellBook = {}
 
 ---@return boolean contains
@@ -20,7 +20,7 @@ function C_SpellBook.GetDeadlyDebuffInfo(spellID) end
 function C_SpellBook.GetOverrideSpell(spellID, spec, onlyKnown, ignoreOverrideSpellID) end
 
 ---@param skillLineID number 
----@return number|nil skillIndex
+---@return luaIndex|nil skillIndex
 function C_SpellBook.GetSkillLineIndexByID(skillLineID) end
 
 ---@param spellID number 
@@ -28,8 +28,9 @@ function C_SpellBook.GetSkillLineIndexByID(skillLineID) end
 function C_SpellBook.GetSpellInfo(spellID) end
 
 ---@param spellID number 
+---@param glyphID number @ [OPTIONAL]
 ---@return string spellLink
-function C_SpellBook.GetSpellLinkFromSpellID(spellID) end
+function C_SpellBook.GetSpellLinkFromSpellID(spellID, glyphID) end
 
 ---@return number spellIDs
 function C_SpellBook.GetTrackedNameplateCooldownSpells() end
@@ -39,18 +40,19 @@ function C_SpellBook.GetTrackedNameplateCooldownSpells() end
 function C_SpellBook.IsSpellDisabled(spellID) end
 
 ---@class DeadlyDebuffInfo
----@field overrideCriticalTimeRemaining number 
+---@field criticalTimeRemainingMs number|nil 
+---@field criticalStacks number|nil 
 ---@field priority number 
 ---@field warningText string 
 ---@field soundKitID number|nil 
-local DeadlyDebuffInfo = {}
+DeadlyDebuffInfo = {}
 
 ---@class SpellInfo
 ---@field name string 
----@field iconID number 
+---@field iconID fileID 
 ---@field castTime number 
 ---@field minRange number 
 ---@field maxRange number 
 ---@field spellID number 
-local SpellInfo = {}
+SpellInfo = {}
 

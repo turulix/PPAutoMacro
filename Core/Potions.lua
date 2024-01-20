@@ -1,46 +1,47 @@
 local addonName, pp = ...
 
-pp.UltimatePower1 = pp.Item.new(191381, "Elemental Potion of Ultimate Power")
-pp.UltimatePower2 = pp.Item.new(191382, "Elemental Potion of Ultimate Power")
-pp.UltimatePower3 = pp.Item.new(191383, "Elemental Potion of Ultimate Power")
+local prefix = "Potion"
 
-pp.FleetUltimatePower1 = pp.Item.new(191912, "Fleeting Elemental Potion of Ultimate Power")
-pp.FleetUltimatePower2 = pp.Item.new(191913, "Fleeting Elemental Potion of Ultimate Power")
-pp.FleetUltimatePower3 = pp.Item.new(191914, "Fleeting Elemental Potion of Ultimate Power")
+potionData = {
+    useElementalPotionOfUltimatePower = {
+        { key = "UltimatePower", tierIDs = { 191381, 191382, 191383 }, skip = false, desc = "Elemental Potion of Ultimate Power" };
+        { key = "FleetUltimatePower", tierIDs = { 191912, 191913, 191914 }, skip = false, desc = "Fleeting Elemental Potion of Ultimate Power" };
+    },
+    useElementalPotionOfPower = {
+        { key = "Power", tierIDs = { 191387, 191388, 191389 }, skip = false, desc = "Elemental Potion of Power" };
+        { key = "FleetPower", tierIDs = { 191905, 191906, 191907 }, skip = false, desc = "Fleeting Elemental Potion of Power" };
+    },
+    useShockingDisclosure = {
+        { key = "ShockingDisclosure", tierIDs = { 191399, 191400, 191401 }, skip = true, desc = "Potion of Shocking Disclosure" };
+    }
+}
 
-pp.Power1 = pp.Item.new(191387, "Elemental Potion of Power")
-pp.Power2 = pp.Item.new(191388, "Elemental Potion of Power")
-pp.Power3 = pp.Item.new(191389, "Elemental Potion of Power")
-
-pp.FleetPower1 = pp.Item.new(191905, "Fleeting Elemental Potion of Power")
-pp.FleetPower2 = pp.Item.new(191906, "Fleeting Elemental Potion of Power")
-pp.FleetPower3 = pp.Item.new(191907, "Fleeting Elemental Potion of Power")
-
-pp.Shocking1 = pp.Item.new(191399, "Potion of Shocking Disclosure")
-pp.Shocking2 = pp.Item.new(191400, "Potion of Shocking Disclosure")
-pp.Shocking3 = pp.Item.new(191401, "Potion of Shocking Disclosure")
+for root, vars in pairs(potionData) do
+    for _, ph in ipairs(vars) do
+        for tier, id in ipairs(ph.tierIDs) do
+            pp[prefix .. ph.key .. tier] = pp.Item.new(id, ph.desc)
+        end
+    end
+end
 
 function pp.getPots()
-    local pots = {
-        pp.FleetUltimatePower3,
-        pp.FleetUltimatePower2,
-        pp.FleetUltimatePower1,
-        pp.FleetPower3,
-        pp.FleetPower2,
-        pp.FleetPower1,
-        pp.UltimatePower3,
-        pp.UltimatePower2,
-        pp.UltimatePower1,
-        pp.Power3,
-        pp.Power2,
-        pp.Power1
-    }
+    local pots = {}
+
+    for _, vars in pairs(potionData) do
+        for _, ph in ipairs(vars) do
+            for tier, id in ipairs(ph.tierIDs) do
+                if not ph.skip then
+                    table.insert(pots, 1, pp[prefix .. ph.key .. tier])
+                end
+            end
+        end
+    end
 
     local _, type = GetInstanceInfo()
-    if PPDB.useSchockingDiscolure and type == "party" then
-        table.insert(pots, 1, pp.Shocking1)
-        table.insert(pots, 1, pp.Shocking2)
-        table.insert(pots, 1, pp.Shocking3)
+    if PPDB["Potion"]["useSchockingDisclosureInDungeons"] and type == "party" then
+        table.insert(pots, 1, pp["PotionShockingDisclosure1"])
+        table.insert(pots, 1, pp["PotionShockingDisclosure2"])
+        table.insert(pots, 1, pp["PotionShockingDisclosure3"])
     end
     return pots
 end

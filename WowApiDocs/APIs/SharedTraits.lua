@@ -1,4 +1,4 @@
----@class SharedTraits
+---@class C_Traits @SharedTraits
 C_Traits = {}
 
 ---@param configID number 
@@ -14,8 +14,9 @@ function C_Traits.CanRefundRank(configID, nodeID) end
 
 ---@param configID number 
 ---@param nodeID number 
+---@param entryID number @ [OPTIONAL]
 ---@return boolean success
-function C_Traits.CascadeRepurchaseRanks(configID, nodeID) end
+function C_Traits.CascadeRepurchaseRanks(configID, nodeID, entryID) end
 
 ---@param configID number 
 function C_Traits.ClearCascadeRepurchaseHistory(configID) end
@@ -29,6 +30,14 @@ function C_Traits.CommitConfig(configID) end
 ---@param configID number 
 ---@return boolean hasChanges
 function C_Traits.ConfigHasStagedChanges(configID) end
+
+---@param configID number 
+---@return string importString
+function C_Traits.GenerateImportString(configID) end
+
+---@param target cstring 
+---@return string importString
+function C_Traits.GenerateInspectImportString(target) end
 
 ---@param configID number 
 ---@param condID number 
@@ -91,6 +100,10 @@ function C_Traits.GetTraitCurrencyInfo(traitCurrencyID) end
 function C_Traits.GetTraitDescription(entryID, rank) end
 
 ---@param configID number 
+---@return number flags
+function C_Traits.GetTraitSystemFlags(configID) end
+
+---@param configID number 
 ---@return number uiWidgetSetID
 function C_Traits.GetTraitSystemWidgetSetID(configID) end
 
@@ -117,6 +130,9 @@ function C_Traits.GetTreeNodes(treeID) end
 ---@return boolean hasValidInspectData
 function C_Traits.HasValidInspectData() end
 
+---@return boolean isReadyForCommit
+function C_Traits.IsReadyForCommit() end
+
 ---@param configID number 
 ---@param nodeID number 
 ---@return boolean success
@@ -129,13 +145,20 @@ function C_Traits.RefundAllRanks(configID, nodeID) end
 
 ---@param configID number 
 ---@param nodeID number 
+---@param clearEdges boolean @ [OPTIONAL]
 ---@return boolean success
-function C_Traits.RefundRank(configID, nodeID) end
+function C_Traits.RefundRank(configID, nodeID, clearEdges) end
 
 ---@param configID number 
 ---@param treeID number 
 ---@return boolean success
 function C_Traits.ResetTree(configID, treeID) end
+
+---@param configID number 
+---@param treeID number 
+---@param traitCurrencyID number 
+---@return boolean success
+function C_Traits.ResetTreeByCurrency(configID, treeID, traitCurrencyID) end
 
 ---@param configID number 
 ---@return boolean success
@@ -144,9 +167,9 @@ function C_Traits.RollbackConfig(configID) end
 ---@param configID number 
 ---@param nodeID number 
 ---@param nodeEntryID number @ [OPTIONAL]
----@overload fun(configID:number, nodeID:number)
+---@param clearEdges boolean @ [OPTIONAL]
 ---@return boolean success
-function C_Traits.SetSelection(configID, nodeID, nodeEntryID) end
+function C_Traits.SetSelection(configID, nodeID, nodeEntryID, clearEdges) end
 
 ---@param configID number 
 ---@return boolean success
@@ -157,9 +180,9 @@ function C_Traits.TalentTestUnlearnSpells() end
 ---@class TraitCondInfo
 ---@field condID number 
 ---@field ranksGranted number|nil 
----@field isAlwaysMet bool 
----@field isMet bool 
----@field isGate bool 
+---@field isAlwaysMet boolean 
+---@field isMet boolean 
+---@field isGate boolean 
 ---@field questID number|nil 
 ---@field achievementID number|nil 
 ---@field specSetID number|nil 
@@ -167,20 +190,20 @@ function C_Traits.TalentTestUnlearnSpells() end
 ---@field traitCurrencyID number|nil 
 ---@field spentAmountRequired number|nil 
 ---@field tooltipFormat string|nil 
-local TraitCondInfo = {}
+TraitCondInfo = {}
 
 ---@class TraitConfigInfo
 ---@field ID number 
 ---@field type TraitConfigType 
 ---@field name string 
----@field treeIDs table 
----@field usesSharedActionBars bool 
-local TraitConfigInfo = {}
+---@field treeIDs number 
+---@field usesSharedActionBars boolean 
+TraitConfigInfo = {}
 
 ---@class TraitCurrencyCost
 ---@field ID number 
 ---@field amount number 
-local TraitCurrencyCost = {}
+TraitCurrencyCost = {}
 
 ---@class TraitDefinitionInfo
 ---@field spellID number|nil 
@@ -190,37 +213,37 @@ local TraitCurrencyCost = {}
 ---@field overrideIcon number|nil 
 ---@field overriddenSpellID number|nil 
 ---@field subType TraitDefinitionSubType|nil 
-local TraitDefinitionInfo = {}
+TraitDefinitionInfo = {}
 
 ---@class TraitEntryInfo
 ---@field definitionID number 
 ---@field type TraitNodeEntryType 
 ---@field maxRanks number 
----@field isAvailable bool 
----@field conditionIDs table 
-local TraitEntryInfo = {}
+---@field isAvailable boolean 
+---@field conditionIDs number 
+TraitEntryInfo = {}
 
 ---@class TraitEntryRankInfo
 ---@field entryID number 
 ---@field rank number 
-local TraitEntryRankInfo = {}
+TraitEntryRankInfo = {}
 
 ---@class TraitGateInfo
 ---@field topLeftNodeID number 
 ---@field conditionID number 
-local TraitGateInfo = {}
+TraitGateInfo = {}
 
 ---@class TraitNodeInfo
 ---@field ID number 
 ---@field posX number 
 ---@field posY number 
 ---@field flags number 
----@field entryIDs table 
----@field entryIDsWithCommittedRanks table 
----@field canPurchaseRank bool 
----@field canRefundRank bool 
----@field isAvailable bool 
----@field isVisible bool 
+---@field entryIDs number 
+---@field entryIDsWithCommittedRanks number 
+---@field canPurchaseRank boolean 
+---@field canRefundRank boolean 
+---@field isAvailable boolean 
+---@field isVisible boolean 
 ---@field ranksPurchased number 
 ---@field activeRank number 
 ---@field currentRank number 
@@ -228,43 +251,44 @@ local TraitGateInfo = {}
 ---@field nextEntry TraitEntryRankInfo|nil 
 ---@field maxRanks number 
 ---@field type TraitNodeType 
----@field visibleEdges table 
----@field meetsEdgeRequirements bool 
----@field groupIDs table 
----@field conditionIDs table 
----@field isCascadeRepurchasable bool 
+---@field visibleEdges TraitOutEdgeInfo 
+---@field meetsEdgeRequirements boolean 
+---@field groupIDs number 
+---@field conditionIDs number 
+---@field isCascadeRepurchasable boolean 
 ---@field cascadeRepurchaseEntryID number|nil 
-local TraitNodeInfo = {}
+TraitNodeInfo = {}
 
 ---@class TraitNodeInfoPartial
----@field canPurchaseRank bool|nil 
----@field canRefundRank bool|nil 
----@field isAvailable bool|nil 
----@field isVisible bool|nil 
+---@field canPurchaseRank boolean|nil 
+---@field canRefundRank boolean|nil 
+---@field isAvailable boolean|nil 
+---@field isVisible boolean|nil 
 ---@field ranksPurchased number|nil 
 ---@field activeRank number|nil 
 ---@field currentRank number|nil 
----@field meetsEdgeRequirements bool|nil 
----@field isCascadeRepurchasable bool|nil 
-local TraitNodeInfoPartial = {}
+---@field meetsEdgeRequirements boolean|nil 
+---@field isCascadeRepurchasable boolean|nil 
+---@field activeEntryID number|nil 
+TraitNodeInfoPartial = {}
 
 ---@class TraitOutEdgeInfo
 ---@field targetNode number 
 ---@field type number 
 ---@field visualStyle number 
----@field isActive bool 
-local TraitOutEdgeInfo = {}
+---@field isActive boolean 
+TraitOutEdgeInfo = {}
 
 ---@class TraitTreeInfo
 ---@field ID number 
----@field gates table 
----@field hideSingleRankNumbers bool 
-local TraitTreeInfo = {}
+---@field gates TraitGateInfo 
+---@field hideSingleRankNumbers boolean 
+TraitTreeInfo = {}
 
 ---@class TreeCurrencyInfo
 ---@field traitCurrencyID number 
 ---@field quantity number 
 ---@field maxQuantity number|nil 
 ---@field spent number 
-local TreeCurrencyInfo = {}
+TreeCurrencyInfo = {}
 
