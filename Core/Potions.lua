@@ -28,7 +28,7 @@ function pp.getPots()
     end
 
     local _, type = GetInstanceInfo()
-    if PPDB["Potion"]["useSchockingDisclosureInDungeons"] and type == "party" then
+    if PPDB["Potion"]["useShockingDisclosureInDungeons"] and type == "party" then
         table.insert(pots, 1, pp["PotionShockingDisclosure1"])
         table.insert(pots, 1, pp["PotionShockingDisclosure2"])
         table.insert(pots, 1, pp["PotionShockingDisclosure3"])
