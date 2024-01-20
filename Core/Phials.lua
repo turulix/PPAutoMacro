@@ -1,7 +1,7 @@
 local addonName, pp = ...
 
 local prefix = "Phial"
-
+-- Lower => Higher priority
 phialData = {
     useAlacrity = {
         { key = "Alacrity", tierIDs = { 191348, 191349, 191350 }, desc = "Charged Phial of Alacrity" };
@@ -45,10 +45,10 @@ phialData = {
     }
 }
 
-for root, vars in pairs(phialData) do
-    for _, ph in ipairs(vars) do
-        for tier, id in ipairs(ph.tierIDs) do
-            pp[prefix .. ph.key .. tier] = pp.Item.new(id, ph.desc)
+for _, phialRoots in pairs(phialData) do
+    for _, potion in ipairs(phialRoots) do
+        for index, id in ipairs(potion.tierIDs) do
+            pp[prefix .. potion.key .. index] = pp.Item.new(id, potion.desc)
         end
     end
 end
@@ -56,10 +56,12 @@ end
 function pp.getPhials()
     local phials = {}
 
-    for _, vars in pairs(phialData) do
-        for _, ph in ipairs(vars) do
-            for tier, id in ipairs(ph.tierIDs) do
-                table.insert(phials, 1, pp[prefix .. ph.key .. tier])
+    for settingsKey, phialRoots in pairs(phialData) do
+        for _, phial in ipairs(phialRoots) do
+            for index, _ in ipairs(phial.tierIDs) do
+                if PPDB["Phial"][settingsKey] then
+                    table.insert(phials, 1, pp[prefix .. phial.key .. index])
+                end
             end
         end
     end

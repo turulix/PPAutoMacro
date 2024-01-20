@@ -2,7 +2,7 @@ local addonName, pp = ...
 
 local rowOffset = -30
 local potionSettings = {
-    { name = "useSchockingDisclosureInDungeons", default = false, desc = "Use Schocking Disclosure in dungeons" };
+    { name = "useShockingDisclosureInDungeons", default = false, desc = "Use Potion of Shocking Disclosure in dungeons" };
 }
 local phialSettings = {
     { name = "useAlacrity", default = false, desc = "Use Charged Phial of Alacrity" };
