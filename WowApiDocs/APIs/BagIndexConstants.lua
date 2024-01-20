@@ -1,5 +1,5 @@
 ---@class BagIndex
-local BagIndex = {}
+BagIndex = {}
 BagIndex.Bankbag = -4
 BagIndex.Reagentbank = -3
 BagIndex.Keyring = -2

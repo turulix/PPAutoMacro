@@ -1,20 +1,19 @@
----@class ScenarioInfo
+---@class C_ScenarioInfo @ScenarioInfo
 C_ScenarioInfo = {}
 
 ---@param runType JailersTowerType 
----@return string|nil typeString
+---@return cstring|nil typeString
 function C_ScenarioInfo.GetJailersTowerTypeString(runType) end
 
 ---@return ScenarioInformation scenarioInfo
 function C_ScenarioInfo.GetScenarioInfo() end
 
 ---@param scenarioStepID number @ [OPTIONAL]
----@overload fun()
 ---@return ScenarioStepInfo scenarioStepInfo
 function C_ScenarioInfo.GetScenarioStepInfo(scenarioStepID) end
 
 ---@class JailersTowerType
-local JailersTowerType = {}
+JailersTowerType = {}
 JailersTowerType.TwistingCorridors = 0
 JailersTowerType.SkoldusHalls = 1
 JailersTowerType.FractureChambers = 2
@@ -36,31 +35,33 @@ JailersTowerType.BossRush = 14
 ---@field currentStage number 
 ---@field numStages number 
 ---@field flags number 
----@field isComplete bool 
+---@field isComplete boolean 
 ---@field xp number 
 ---@field money number 
 ---@field type number 
 ---@field area string 
----@field uiTextureKit string 
-local ScenarioInformation = {}
+---@field uiTextureKit textureKit 
+---@field scenarioID number 
+ScenarioInformation = {}
 
 ---@class ScenarioStepInfo
 ---@field title string 
 ---@field description string 
 ---@field numCriteria number 
----@field stepFailed bool 
----@field isBonusStep bool 
----@field isForCurrentStepOnly bool 
----@field shouldShowBonusObjective bool 
----@field spells table 
+---@field stepFailed boolean 
+---@field isBonusStep boolean 
+---@field isForCurrentStepOnly boolean 
+---@field shouldShowBonusObjective boolean 
+---@field spells ScenarioStepSpellInfo 
 ---@field weightedProgress number|nil 
 ---@field rewardQuestID number 
 ---@field widgetSetID number|nil 
-local ScenarioStepInfo = {}
+---@field stepID number 
+ScenarioStepInfo = {}
 
 ---@class ScenarioStepSpellInfo
 ---@field spellID number 
 ---@field name string 
 ---@field icon number 
-local ScenarioStepSpellInfo = {}
+ScenarioStepSpellInfo = {}
 

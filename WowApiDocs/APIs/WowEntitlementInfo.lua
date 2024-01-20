@@ -1,8 +1,8 @@
----@class WowEntitlementInfo
+---@class C_WowEntitlementInfo @WowEntitlementInfo
 C_WowEntitlementInfo = {}
 
 ---@class WoWEntitlementType
-local WoWEntitlementType = {}
+WoWEntitlementType = {}
 WoWEntitlementType.Item = 0
 WoWEntitlementType.Mount = 1
 WoWEntitlementType.Battlepet = 2

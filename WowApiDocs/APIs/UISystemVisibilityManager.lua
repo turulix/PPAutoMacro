@@ -1,4 +1,4 @@
----@class UISystemVisibilityManager
+---@class C_SystemVisibilityManager @UISystemVisibilityManager
 C_SystemVisibilityManager = {}
 
 ---@param system UISystemType 
@@ -6,6 +6,6 @@ C_SystemVisibilityManager = {}
 function C_SystemVisibilityManager.IsSystemVisible(system) end
 
 ---@class UISystemType
-local UISystemType = {}
+UISystemType = {}
 UISystemType.InGameNavigation = 0
 

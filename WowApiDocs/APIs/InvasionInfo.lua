@@ -1,4 +1,4 @@
----@class InvasionInfo
+---@class C_InvasionInfo @InvasionInfo
 C_InvasionInfo = {}
 
 --- Returns true if invasions are active in the same physical area as the player.
@@ -20,8 +20,8 @@ function C_InvasionInfo.GetInvasionTimeLeft(invasionID) end
 ---@class InvasionMapInfo
 ---@field invasionID number 
 ---@field name string 
----@field position table 
----@field atlasName string 
+---@field position vector2 
+---@field atlasName textureAtlas 
 ---@field rewardQuestID number|nil 
-local InvasionMapInfo = {}
+InvasionMapInfo = {}
 

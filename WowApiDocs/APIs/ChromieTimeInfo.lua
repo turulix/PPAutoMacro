@@ -1,4 +1,4 @@
----@class ChromieTimeInfo
+---@class C_ChromieTime @ChromieTimeInfo
 C_ChromieTime = {}
 
 function C_ChromieTime.CloseUI() end
@@ -15,11 +15,13 @@ function C_ChromieTime.SelectChromieTimeOption(chromieTimeExpansionInfoId) end
 
 ---@class ChromieTimeExpansionInfo
 ---@field id number 
----@field name string 
----@field description string 
----@field mapAtlas string 
----@field previewAtlas string 
----@field completed bool 
----@field alreadyOn bool 
-local ChromieTimeExpansionInfo = {}
+---@field name cstring 
+---@field description cstring 
+---@field mapAtlas textureAtlas 
+---@field previewAtlas textureAtlas 
+---@field completed boolean 
+---@field alreadyOn boolean 
+---@field recommended boolean 
+---@field sortPriority number 
+ChromieTimeExpansionInfo = {}
 

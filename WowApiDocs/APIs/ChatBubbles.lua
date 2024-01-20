@@ -1,7 +1,7 @@
----@class ChatBubbles
+---@class C_ChatBubbles @ChatBubbles
 C_ChatBubbles = {}
 
 ---@param includeForbidden boolean 
----@return table chatBubbles
+---@return ChatBubbleFrame chatBubbles
 function C_ChatBubbles.GetAllChatBubbles(includeForbidden) end
 

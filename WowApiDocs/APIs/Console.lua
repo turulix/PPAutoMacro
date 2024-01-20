@@ -1,24 +1,37 @@
----@class Console
-C_Console = {}
+---@param firstString stringView 
+---@param secondString stringView 
+---@return number distance
+function CalculateStringEditDistance(firstString, secondString) end
+
+---@param message cstring 
+function ConsoleAddMessage(message) end
+
+---@param command cstring 
+---@param addToHistory boolean 
+---@return boolean result
+function ConsoleExec(command, addToHistory) end
 
 ---@return ConsoleCommandInfo commands
-function C_Console.GetAllCommands() end
+function ConsoleGetAllCommands() end
 
 ---@param colorType ConsoleColorType 
----@return table color
-function C_Console.GetColorFromType(colorType) end
+---@return colorRGB color
+function ConsoleGetColorFromType(colorType) end
 
 ---@return number fontHeightInPixels
-function C_Console.GetFontHeight() end
+function ConsoleGetFontHeight() end
 
----@param partialCommandText string 
-function C_Console.PrintAllMatchingCommands(partialCommandText) end
+---@return boolean consoleIsActive
+function ConsoleIsActive() end
+
+---@param partialCommandText cstring 
+function ConsolePrintAllMatchingCommands(partialCommandText) end
 
 ---@param fontHeightInPixels number 
-function C_Console.SetFontHeight(fontHeightInPixels) end
+function ConsoleSetFontHeight(fontHeightInPixels) end
 
 ---@class ConsoleCategory
-local ConsoleCategory = {}
+ConsoleCategory = {}
 ConsoleCategory.Debug = 0
 ConsoleCategory.Graphics = 1
 ConsoleCategory.Console = 2
@@ -32,7 +45,7 @@ ConsoleCategory.Reveal = 9
 ConsoleCategory.None = 10
 
 ---@class ConsoleColorType
-local ConsoleColorType = {}
+ConsoleColorType = {}
 ConsoleColorType.DefaultColor = 0
 ConsoleColorType.InputColor = 1
 ConsoleColorType.EchoColor = 2
@@ -47,18 +60,18 @@ ConsoleColorType.PrivateColor = 10
 ConsoleColorType.DefaultGreen = 11
 
 ---@class ConsoleCommandType
-local ConsoleCommandType = {}
+ConsoleCommandType = {}
 ConsoleCommandType.Cvar = 0
 ConsoleCommandType.Command = 1
 ConsoleCommandType.Macro = 2
 ConsoleCommandType.Script = 3
 
 ---@class ConsoleCommandInfo
----@field command string 
----@field help string 
+---@field command cstring 
+---@field help cstring 
 ---@field category ConsoleCategory 
 ---@field commandType ConsoleCommandType 
----@field scriptContents string 
----@field scriptParameters string 
-local ConsoleCommandInfo = {}
+---@field scriptContents cstring 
+---@field scriptParameters cstring 
+ConsoleCommandInfo = {}
 

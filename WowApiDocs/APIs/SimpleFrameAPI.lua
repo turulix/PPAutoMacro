@@ -1,61 +1,49 @@
 
+function AbortDrag() end
+
+
 ---@return boolean canChangeAttributes
 function CanChangeAttribute() end
 
----@param name string @ [OPTIONAL]
----@param drawLayer string @ [OPTIONAL]
----@param templateName string @ [OPTIONAL]
----@overload fun(drawLayer:string, templateName:string)
----@overload fun(templateName:string)
----@overload fun()
----@return table line
+---@param name cstring @ [OPTIONAL]
+---@param drawLayer DrawLayer @ [OPTIONAL]
+---@param templateName cstring @ [OPTIONAL]
+---@return SimpleFontString line
 function CreateFontString(name, drawLayer, templateName) end
 
----@param name string @ [OPTIONAL]
----@param drawLayer string @ [OPTIONAL]
----@param templateName string @ [OPTIONAL]
+---@param name cstring @ [OPTIONAL]
+---@param drawLayer DrawLayer @ [OPTIONAL]
+---@param templateName cstring @ [OPTIONAL]
 ---@param subLevel number @ [OPTIONAL]
----@overload fun(drawLayer:string, templateName:string, subLevel:number)
----@overload fun(templateName:string, subLevel:number)
----@overload fun(subLevel:number)
----@overload fun()
----@return table line
+---@return SimpleLine line
 function CreateLine(name, drawLayer, templateName, subLevel) end
 
----@param name string @ [OPTIONAL]
----@param drawLayer string @ [OPTIONAL]
----@param templateName string @ [OPTIONAL]
+---@param name cstring @ [OPTIONAL]
+---@param drawLayer DrawLayer @ [OPTIONAL]
+---@param templateName cstring @ [OPTIONAL]
 ---@param subLevel number @ [OPTIONAL]
----@overload fun(drawLayer:string, templateName:string, subLevel:number)
----@overload fun(templateName:string, subLevel:number)
----@overload fun(subLevel:number)
----@overload fun()
----@return table maskTexture
+---@return SimpleMaskTexture maskTexture
 function CreateMaskTexture(name, drawLayer, templateName, subLevel) end
 
----@param name string @ [OPTIONAL]
----@param drawLayer string @ [OPTIONAL]
----@param templateName string @ [OPTIONAL]
+---@param name cstring @ [OPTIONAL]
+---@param drawLayer DrawLayer @ [OPTIONAL]
+---@param templateName cstring @ [OPTIONAL]
 ---@param subLevel number @ [OPTIONAL]
----@overload fun(drawLayer:string, templateName:string, subLevel:number)
----@overload fun(templateName:string, subLevel:number)
----@overload fun(subLevel:number)
----@overload fun()
----@return table texture
+---@return SimpleTexture texture
 function CreateTexture(name, drawLayer, templateName, subLevel) end
 
 ---@param desaturation number 
 ---@param excludeRoot boolean 
 function DesaturateHierarchy(desaturation, excludeRoot) end
 
----@param layer string 
+---@param layer DrawLayer 
 function DisableDrawLayer(layer) end
 
 
 ---@return boolean clipsChildren
 function DoesClipChildren() end
 
----@param layer string 
+---@param layer DrawLayer 
 function EnableDrawLayer(layer) end
 
 ---@param enable boolean 
@@ -67,21 +55,21 @@ function EnableGamePadStick(enable) end
 ---@param enable boolean 
 function EnableKeyboard(enable) end
 
----@param attributeName string 
+---@param attributeName cstring 
 ---@param unpackedPrimitiveType string 
 ---@return boolean, string success, unpackedPrimitiveType
 function ExecuteAttribute(attributeName, unpackedPrimitiveType) end
 
 
----@return number alpha
+---@return SingleColorValue alpha
 function GetAlpha() end
 
----@param attributeName string 
----@return string value
+---@param attributeName cstring 
+---@return cstring value
 function GetAttribute(attributeName) end
 
 
----@return number, number, number, number left, bottom, width, height
+---@return uiUnit, uiUnit, uiUnit, uiUnit left, bottom, width, height
 function GetBoundsRect() end
 
 
@@ -89,7 +77,7 @@ function GetBoundsRect() end
 function GetChildren() end
 
 
----@return number, number, number, number left, right, top, bottom
+---@return uiUnit, uiUnit, uiUnit, uiUnit left, right, top, bottom
 function GetClampRectInsets() end
 
 
@@ -97,7 +85,7 @@ function GetClampRectInsets() end
 function GetDontSavePosition() end
 
 
----@return number effectiveAlpha
+---@return SingleColorValue effectiveAlpha
 function GetEffectiveAlpha() end
 
 
@@ -117,11 +105,11 @@ function GetFlattensRenderLayers() end
 function GetFrameLevel() end
 
 
----@return string strata
+---@return FrameStrata strata
 function GetFrameStrata() end
 
 
----@return number, number, number, number left, right, top, bottom
+---@return uiUnit, uiUnit, uiUnit, uiUnit left, right, top, bottom
 function GetHitRectInsets() end
 
 
@@ -145,16 +133,24 @@ function GetNumRegions() end
 function GetPropagateKeyboardInput() end
 
 
+---@return number frameLevel
+function GetRaisedFrameLevel() end
+
+
 ---@return ScriptObject scriptObject
 function GetRegions() end
 
 
----@return number, number, number, number minWidth, minHeight, maxWidth, maxHeight
+---@return uiUnit, uiUnit, uiUnit, uiUnit minWidth, minHeight, maxWidth, maxHeight
 function GetResizeBounds() end
 
 
 ---@return number frameScale
 function GetScale() end
+
+
+---@return SimpleWindow window
+function GetWindow() end
 
 
 ---@return boolean isFixed
@@ -167,11 +163,14 @@ function HasFixedFrameStrata() end
 
 function Hide() end
 
+---@param delegate SimpleFrame 
+function InterceptStartDrag(delegate) end
+
 
 ---@return boolean clampedToScreen
 function IsClampedToScreen() end
 
----@param eventName string 
+---@param eventName cstring 
 ---@return boolean, string|nil isRegistered, units
 function IsEventRegistered(eventName) end
 
@@ -224,6 +223,9 @@ function IsUserPlaced() end
 function IsVisible() end
 
 
+function LockHighlight() end
+
+
 function Lower() end
 
 
@@ -232,14 +234,14 @@ function Raise() end
 
 function RegisterAllEvents() end
 
----@param eventName string 
+---@param eventName cstring 
 ---@return boolean registered
 function RegisterEvent(eventName) end
 
 ---@param unpackedPrimitiveType number 
 function RegisterForDrag(unpackedPrimitiveType) end
 
----@param eventName string 
+---@param eventName cstring 
 ---@param units string 
 ---@return boolean registered
 function RegisterUnitEvent(eventName, units) end
@@ -249,21 +251,21 @@ function RegisterUnitEvent(eventName, units) end
 ---@param y number 
 function RotateTextures(radians, x, y) end
 
----@param alpha number 
+---@param alpha SingleColorValue 
 function SetAlpha(alpha) end
 
----@param attributeName string 
----@param value string 
+---@param attributeName cstring 
+---@param value cstring 
 function SetAttribute(attributeName, value) end
 
----@param attributeName string 
----@param value string 
+---@param attributeName cstring 
+---@param value cstring 
 function SetAttributeNoHandler(attributeName, value) end
 
----@param left number 
----@param right number 
----@param top number 
----@param bottom number 
+---@param left uiUnit 
+---@param right uiUnit 
+---@param top uiUnit 
+---@param bottom uiUnit 
 function SetClampRectInsets(left, right, top, bottom) end
 
 ---@param clampedToScreen boolean 
@@ -275,7 +277,7 @@ function SetClipsChildren(clipsChildren) end
 ---@param dontSave boolean 
 function SetDontSavePosition(dontSave) end
 
----@param layer string 
+---@param layer DrawLayer 
 ---@param isEnabled boolean 
 function SetDrawLayerEnabled(layer, isEnabled) end
 
@@ -291,13 +293,16 @@ function SetFlattensRenderLayers(flatten) end
 ---@param frameLevel number 
 function SetFrameLevel(frameLevel) end
 
----@param strata string 
+---@param strata FrameStrata 
 function SetFrameStrata(strata) end
 
----@param left number 
----@param right number 
----@param top number 
----@param bottom number 
+---@param locked boolean 
+function SetHighlightLocked(locked) end
+
+---@param left uiUnit 
+---@param right uiUnit 
+---@param top uiUnit 
+---@param bottom uiUnit 
 function SetHitRectInsets(left, right, top, bottom) end
 
 ---@param enabled boolean 
@@ -324,12 +329,10 @@ function SetPropagateKeyboardInput(propagate) end
 ---@param resizable boolean 
 function SetResizable(resizable) end
 
----@param minWidth number 
----@param minHeight number 
----@param maxWidth number @ [OPTIONAL]
----@param maxHeight number @ [OPTIONAL]
----@overload fun(minWidth:number, minHeight:number, maxHeight:number)
----@overload fun(minWidth:number, minHeight:number)
+---@param minWidth uiUnit 
+---@param minHeight uiUnit 
+---@param maxWidth uiUnit @ [OPTIONAL]
+---@param maxHeight uiUnit @ [OPTIONAL]
 function SetResizeBounds(minWidth, minHeight, maxWidth, maxHeight) end
 
 ---@param scale number 
@@ -344,6 +347,9 @@ function SetToplevel(topLevel) end
 ---@param userPlaced boolean 
 function SetUserPlaced(userPlaced) end
 
+---@param window SimpleWindow @ [OPTIONAL]
+function SetWindow(window) end
+
 
 function Show() end
 
@@ -352,16 +358,18 @@ function StartMoving(alwaysStartFromMouse) end
 
 ---@param resizePoint FramePoint @ [OPTIONAL]
 ---@param alwaysStartFromMouse boolean 
----@overload fun(alwaysStartFromMouse:bool)
 function StartSizing(resizePoint, alwaysStartFromMouse) end
 
 
 function StopMovingOrSizing() end
 
 
+function UnlockHighlight() end
+
+
 function UnregisterAllEvents() end
 
----@param eventName string 
+---@param eventName cstring 
 ---@return boolean registered
 function UnregisterEvent(eventName) end
 

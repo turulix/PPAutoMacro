@@ -1,7 +1,7 @@
----@class ClassColor
+---@class C_ClassColor @ClassColor
 C_ClassColor = {}
 
 ---@param className string 
----@return table classColor
+---@return colorRGB classColor
 function C_ClassColor.GetClassColor(className) end
 

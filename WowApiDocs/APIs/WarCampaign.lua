@@ -1,4 +1,4 @@
----@class WarCampaign
+---@class C_CampaignInfo @WarCampaign
 C_CampaignInfo = {}
 
 ---@return number campaignIDs
@@ -40,33 +40,31 @@ function C_CampaignInfo.IsCampaignQuest(questID) end
 ---@return boolean sortAsNormalQuest
 function C_CampaignInfo.SortAsNormalQuest(campaignID) end
 
----@param campaignID number 
----@return boolean useNormalQuestIcons
-function C_CampaignInfo.UsesNormalQuestIcons(campaignID) end
-
 ---@class CampaignState
-local CampaignState = {}
+CampaignState = {}
 CampaignState.Invalid = 0
 CampaignState.Complete = 1
 CampaignState.InProgress = 2
 CampaignState.Stalled = 3
 
 ---@class CampaignChapterInfo
----@field name string 
----@field description string 
+---@field name cstring 
+---@field description cstring 
 ---@field rewardQuestID number 
-local CampaignChapterInfo = {}
+CampaignChapterInfo = {}
 
 ---@class CampaignFailureReason
 ---@field text string 
 ---@field questID number|nil 
 ---@field mapID number|nil 
-local CampaignFailureReason = {}
+CampaignFailureReason = {}
 
 ---@class CampaignInfo
----@field name string 
----@field description string 
----@field uiTextureKit string 
----@field isWarCampaign bool 
-local CampaignInfo = {}
+---@field name cstring 
+---@field description cstring 
+---@field uiTextureKit textureKit 
+---@field isWarCampaign boolean 
+---@field usesNormalQuestIcons boolean 
+---@field isContainerCampaign boolean 
+CampaignInfo = {}
 

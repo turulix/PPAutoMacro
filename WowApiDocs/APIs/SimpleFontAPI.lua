@@ -1,16 +1,16 @@
----@param sourceFont table 
+---@param sourceFont SimpleFont 
 function CopyFontObject(sourceFont) end
 
 
----@return number alpha
+---@return SingleColorValue alpha
 function GetAlpha() end
 
 
----@return string, number, string fontFile, height, flags
+---@return cstring, uiFontHeight, TBFFlags fontFile, height, flags
 function GetFont() end
 
 
----@return table font
+---@return SimpleFont font
 function GetFontObject() end
 
 
@@ -18,11 +18,11 @@ function GetFontObject() end
 function GetIndentedWordWrap() end
 
 
----@return string justifyH
+---@return TBFStyleFlags justifyH
 function GetJustifyH() end
 
 
----@return string justifyV
+---@return TBFStyleFlags justifyV
 function GetJustifyV() end
 
 
@@ -34,51 +34,49 @@ function GetShadowColor() end
 function GetShadowOffset() end
 
 
----@return number spacing
+---@return uiUnit spacing
 function GetSpacing() end
 
 
 ---@return number, number, number, number colorR, colorG, colorB, colorA
 function GetTextColor() end
 
----@param alpha number 
+---@param alpha SingleColorValue 
 function SetAlpha(alpha) end
 
----@param fontFile string 
----@param height number 
----@param flags string 
+---@param fontFile cstring 
+---@param height uiFontHeight 
+---@param flags TBFFlags 
 function SetFont(fontFile, height, flags) end
 
----@param font table 
+---@param font SimpleFont 
 function SetFontObject(font) end
 
 ---@param wordWrap boolean 
 function SetIndentedWordWrap(wordWrap) end
 
----@param justifyH string 
+---@param justifyH TBFStyleFlags 
 function SetJustifyH(justifyH) end
 
----@param justifyV string 
+---@param justifyV TBFStyleFlags 
 function SetJustifyV(justifyV) end
 
 ---@param colorR number 
 ---@param colorG number 
 ---@param colorB number 
----@param a number @ [OPTIONAL]
----@overload fun(colorR:number, colorG:number, colorB:number)
+---@param a SingleColorValue @ [OPTIONAL]
 function SetShadowColor(colorR, colorG, colorB, a) end
 
 ---@param offsetX number 
 ---@param offsetY number 
 function SetShadowOffset(offsetX, offsetY) end
 
----@param spacing number 
+---@param spacing uiUnit 
 function SetSpacing(spacing) end
 
 ---@param colorR number 
 ---@param colorG number 
 ---@param colorB number 
----@param a number @ [OPTIONAL]
----@overload fun(colorR:number, colorG:number, colorB:number)
+---@param a SingleColorValue @ [OPTIONAL]
 function SetTextColor(colorR, colorG, colorB, a) end
 

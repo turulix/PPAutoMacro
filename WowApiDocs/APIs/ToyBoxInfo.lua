@@ -1,10 +1,10 @@
----@class ToyBoxInfo
+---@class C_ToyBoxInfo @ToyBoxInfo
 C_ToyBoxInfo = {}
 
 ---@param itemID number 
 function C_ToyBoxInfo.ClearFanfare(itemID) end
 
----@param source number 
+---@param source luaIndex 
 ---@return boolean isToySourceValid
 function C_ToyBoxInfo.IsToySourceValid(source) end
 

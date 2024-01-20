@@ -1,4 +1,4 @@
----@param text string 
+---@param text cstring 
 function AddHistoryLine(text) end
 
 
@@ -33,11 +33,11 @@ function GetCursorPosition() end
 function GetDisplayText() end
 
 
----@return string, number, string name, fontHeight, flags
+---@return cstring, uiUnit, TBFFlags name, fontHeight, flags
 function GetFont() end
 
 
----@return table font
+---@return SimpleFont font
 function GetFontObject() end
 
 
@@ -53,15 +53,15 @@ function GetHistoryLines() end
 function GetIndentedWordWrap() end
 
 
----@return string language
+---@return cstring language
 function GetInputLanguage() end
 
 
----@return string justifyH
+---@return TBFStyleFlags justifyH
 function GetJustifyH() end
 
 
----@return string justifyV
+---@return TBFStyleFlags justifyV
 function GetJustifyV() end
 
 
@@ -89,11 +89,11 @@ function GetShadowColor() end
 function GetShadowOffset() end
 
 
----@return number fontHeight
+---@return uiUnit fontHeight
 function GetSpacing() end
 
 
----@return string text
+---@return cstring text
 function GetText() end
 
 
@@ -101,7 +101,7 @@ function GetText() end
 function GetTextColor() end
 
 
----@return number, number, number, number left, right, top, bottom
+---@return uiUnit, uiUnit, uiUnit, uiUnit left, right, top, bottom
 function GetTextInsets() end
 
 
@@ -124,8 +124,12 @@ function HasText() end
 ---@param stop number 
 function HighlightText(start, stop) end
 
----@param text string 
+---@param text cstring 
 function Insert(text) end
+
+
+---@return boolean enabled
+function IsAlphabeticOnly() end
 
 
 ---@return boolean autoFocus
@@ -152,12 +156,22 @@ function IsMultiLine() end
 function IsNumeric() end
 
 
+---@return boolean isNumeric
+function IsNumericFullRange() end
+
+
 ---@return boolean isPassword
 function IsPassword() end
 
 
 ---@return boolean isSecure
 function IsSecureText() end
+
+
+function ResetInputMode() end
+
+---@param enabled boolean 
+function SetAlphabeticOnly(enabled) end
 
 ---@param altMode boolean 
 function SetAltArrowKeyMode(altMode) end
@@ -180,20 +194,19 @@ function SetEnabled(enabled) end
 
 function SetFocus() end
 
----@param fontFile string 
----@param height number 
----@param flags string 
+---@param fontFile cstring 
+---@param height uiFontHeight 
+---@param flags TBFFlags 
 ---@return boolean success
 function SetFont(fontFile, height, flags) end
 
----@param font table 
+---@param font SimpleFont 
 function SetFontObject(font) end
 
 ---@param colorR number 
 ---@param colorG number 
 ---@param colorB number 
----@param a number @ [OPTIONAL]
----@overload fun(colorR:number, colorG:number, colorB:number)
+---@param a SingleColorValue @ [OPTIONAL]
 function SetHighlightColor(colorR, colorG, colorB, a) end
 
 ---@param numHistoryLines number 
@@ -202,10 +215,10 @@ function SetHistoryLines(numHistoryLines) end
 ---@param isIndented boolean 
 function SetIndentedWordWrap(isIndented) end
 
----@param justifyH string 
+---@param justifyH TBFStyleFlags 
 function SetJustifyH(justifyH) end
 
----@param justifyV string 
+---@param justifyV TBFStyleFlags 
 function SetJustifyV(justifyV) end
 
 ---@param maxBytes number 
@@ -223,6 +236,9 @@ function SetNumber(number) end
 ---@param isNumeric boolean 
 function SetNumeric(isNumeric) end
 
+---@param isNumeric boolean 
+function SetNumericFullRange(isNumeric) end
+
 ---@param isPassword boolean 
 function SetPassword(isPassword) end
 
@@ -238,31 +254,29 @@ function SetSecurityDisableSetText() end
 ---@param colorR number 
 ---@param colorG number 
 ---@param colorB number 
----@param a number @ [OPTIONAL]
----@overload fun(colorR:number, colorG:number, colorB:number)
+---@param a SingleColorValue @ [OPTIONAL]
 function SetShadowColor(colorR, colorG, colorB, a) end
 
 ---@param offsetX number 
 ---@param offsetY number 
 function SetShadowOffset(offsetX, offsetY) end
 
----@param fontHeight number 
+---@param fontHeight uiUnit 
 function SetSpacing(fontHeight) end
 
----@param text string 
+---@param text cstring 
 function SetText(text) end
 
 ---@param colorR number 
 ---@param colorG number 
 ---@param colorB number 
----@param a number @ [OPTIONAL]
----@overload fun(colorR:number, colorG:number, colorB:number)
+---@param a SingleColorValue @ [OPTIONAL]
 function SetTextColor(colorR, colorG, colorB, a) end
 
----@param left number 
----@param right number 
----@param top number 
----@param bottom number 
+---@param left uiUnit 
+---@param right uiUnit 
+---@param top uiUnit 
+---@param bottom uiUnit 
 function SetTextInsets(left, right, top, bottom) end
 
 ---@param maxVisibleBytes number 

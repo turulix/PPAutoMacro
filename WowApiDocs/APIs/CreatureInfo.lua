@@ -1,4 +1,4 @@
----@class CreatureInfo
+---@class C_CreatureInfo @CreatureInfo
 C_CreatureInfo = {}
 
 ---@param classID number 
@@ -17,16 +17,16 @@ function C_CreatureInfo.GetRaceInfo(raceID) end
 ---@field className string 
 ---@field classFile string 
 ---@field classID number 
-local ClassInfo = {}
+ClassInfo = {}
 
 ---@class FactionInfo
----@field name string 
----@field groupTag string 
-local FactionInfo = {}
+---@field name cstring 
+---@field groupTag cstring 
+FactionInfo = {}
 
 ---@class RaceInfo
 ---@field raceName string 
 ---@field clientFileString string 
 ---@field raceID number 
-local RaceInfo = {}
+RaceInfo = {}
 

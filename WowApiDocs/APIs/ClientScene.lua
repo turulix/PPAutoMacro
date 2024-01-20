@@ -1,8 +1,8 @@
----@class ClientScene
+---@class C_ClientScene @ClientScene
 C_ClientScene = {}
 
 ---@class ClientSceneType
-local ClientSceneType = {}
+ClientSceneType = {}
 ClientSceneType.DefaultSceneType = 0
 ClientSceneType.MinigameSceneType = 1
 

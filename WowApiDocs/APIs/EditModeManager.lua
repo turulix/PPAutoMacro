@@ -1,4 +1,4 @@
----@class EditModeManager
+---@class C_EditMode @EditModeManager
 C_EditMode = {}
 
 ---@param layoutInfo EditModeLayoutInfo 
@@ -17,10 +17,12 @@ function C_EditMode.GetLayouts() end
 
 function C_EditMode.OnEditModeExit() end
 
----@param addedLayoutIndex number 
-function C_EditMode.OnLayoutAdded(addedLayoutIndex) end
+---@param addedLayoutIndex luaIndex 
+---@param activateNewLayout boolean 
+---@param isLayoutImported boolean 
+function C_EditMode.OnLayoutAdded(addedLayoutIndex, activateNewLayout, isLayoutImported) end
 
----@param deletedLayoutIndex number 
+---@param deletedLayoutIndex luaIndex 
 function C_EditMode.OnLayoutDeleted(deletedLayoutIndex) end
 
 ---@param saveInfo EditModeLayouts 
@@ -30,7 +32,7 @@ function C_EditMode.SaveLayouts(saveInfo) end
 ---@param value number 
 function C_EditMode.SetAccountSetting(setting, value) end
 
----@param activeLayout number 
+---@param activeLayout luaIndex 
 function C_EditMode.SetActiveLayout(activeLayout) end
 
 ---@class EditModeAnchorInfo
@@ -39,30 +41,30 @@ function C_EditMode.SetActiveLayout(activeLayout) end
 ---@field relativePoint FramePoint 
 ---@field offsetX number 
 ---@field offsetY number 
-local EditModeAnchorInfo = {}
+EditModeAnchorInfo = {}
 
 ---@class EditModeLayoutInfo
 ---@field layoutName string 
 ---@field layoutType EditModeLayoutType 
----@field systems table 
-local EditModeLayoutInfo = {}
+---@field systems EditModeSystemInfo 
+EditModeLayoutInfo = {}
 
 ---@class EditModeLayouts
----@field layouts table 
----@field activeLayout number 
-local EditModeLayouts = {}
+---@field layouts EditModeLayoutInfo 
+---@field activeLayout luaIndex 
+EditModeLayouts = {}
 
 ---@class EditModeSettingInfo
 ---@field setting number 
 ---@field value number 
-local EditModeSettingInfo = {}
+EditModeSettingInfo = {}
 
 ---@class EditModeSystemInfo
 ---@field system EditModeSystem 
----@field systemIndex number|nil 
+---@field systemIndex luaIndex|nil 
 ---@field anchorInfo EditModeAnchorInfo 
 ---@field anchorInfo2 EditModeAnchorInfo|nil 
----@field settings table 
----@field isInDefaultPosition bool 
-local EditModeSystemInfo = {}
+---@field settings EditModeSettingInfo 
+---@field isInDefaultPosition boolean 
+EditModeSystemInfo = {}
 

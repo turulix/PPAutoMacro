@@ -1,4 +1,4 @@
----@class UIFrameManager
+---@class C_FrameManager @UIFrameManager
 C_FrameManager = {}
 
 ---@param frameType UIFrameType 
@@ -6,6 +6,6 @@ C_FrameManager = {}
 function C_FrameManager.GetFrameVisibilityState(frameType) end
 
 ---@class UIFrameType
-local UIFrameType = {}
+UIFrameType = {}
 UIFrameType.JailersTowerBuffs = 0
 

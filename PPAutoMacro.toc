@@ -1,12 +1,13 @@
-## Interface: 100200
+## Interface: 100205
 ## Version: @project-version@
 ## Title: Potion of Power Auto Macro
 ## Author: turulix
-## Notes: Updates the Macro PPAutoPot to use the highest Potion Available.
-## SavedVariables: PPDB
+## Notes: Updates the Macro PPAutoPot & PPAutoPhial to use the highest Potion & Phial Available.
+## SavedVariablesPerCharacter: PPDB
 ## X-Curse-Project-ID: 818023
 Code.lua
 Core/Item.lua
 Core/Potions.lua
+Core/Phials.lua
 Bindings.lua
 FrameXML/InterfaceOptionsFrame.lua

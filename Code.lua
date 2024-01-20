@@ -1,21 +1,24 @@
 local addonName, pp = ...
-local macroName = "PPAutoPot"
+local potionMacroName = "PPAutoPot"
+local phialMacroName = "PPAutoPhial"
 
 local function createMacroIfMissing()
-    local name = GetMacroInfo(macroName)
-    if name == nil then
-        CreateMacro(macroName, "INV_Misc_QuestionMark")
+    if GetMacroInfo(potionMacroName) == nil then
+        CreateMacro(potionMacroName, "INV_Misc_QuestionMark")
+    end
+    if GetMacroInfo(phialMacroName) == nil then
+        CreateMacro(phialMacroName, "INV_Misc_QuestionMark")
     end
 end
 
-local function updateMacro()
+local function buildMacroString(items)
     local resetType = "combat"
     local itemsString = ""
-    if next(pp.itemIdList) == nil then
-        pp.macroStr = "#showtooltip"
+    if next(items) == nil then
+        return "#showtooltip"
     else
-        if next(pp.itemIdList) ~= nil then
-            for i, v in ipairs(pp.itemIdList) do
+        if next(items) ~= nil then
+            for i, v in ipairs(items) do
                 if i == 1 then
                     itemsString = "item:" .. v;
                 else
@@ -23,20 +26,32 @@ local function updateMacro()
                 end
             end
         end
-        pp.macroStr = "#showtooltip \n/castsequence reset=" .. resetType .. " "
-        if itemsString ~= "" then
-            pp.macroStr = pp.macroStr .. itemsString
-        end
+        return "#showtooltip \n/castsequence reset=" .. resetType .. " " .. itemsString
     end
-    createMacroIfMissing()
-    EditMacro(macroName, macroName, nil, pp.macroStr)
 end
 
-local function addPotIfAvailable()
+local function updateMacro()
+    createMacroIfMissing()
+    EditMacro(potionMacroName, potionMacroName, nil, buildMacroString(pp.availablePotions))
+    EditMacro(phialMacroName, phialMacroName, nil, buildMacroString(pp.availablePhials))
+end
+
+local function addPotionIfAvailable()
     pots = pp.getPots()
     for iterator, value in ipairs(pots) do
         if value.getCount() > 0 then
-            table.insert(pp.itemIdList, value.getId())
+            table.insert(pp.availablePotions, value.getId())
+            --we break because all Pots share a cd so we only want the highest power potion
+            break ;
+        end
+    end
+end
+
+local function addPhialIfAvailable()
+    phials = pp.getPhials()
+    for iterator, value in ipairs(phials) do
+        if value.getCount() > 0 then
+            table.insert(pp.availablePhials, value.getId())
             --we break because all Pots share a cd so we only want the highest power potion
             break ;
         end
@@ -44,8 +59,10 @@ local function addPotIfAvailable()
 end
 
 local function updateAvailablePots()
-    pp.itemIdList = {}
-    addPotIfAvailable()
+    pp.availablePotions = {}
+    pp.availablePhials = {}
+    addPotionIfAvailable()
+    addPhialIfAvailable()
 end
 
 local onCombat = true

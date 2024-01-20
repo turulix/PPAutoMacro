@@ -10,7 +10,7 @@ function GetAccountExpansionLevel() end
 ---@return number expansionLevel
 function GetClientDisplayExpansionLevel() end
 
----@return string regionName
+---@return cstring regionName
 function GetCurrentRegionName() end
 
 ---@param expansionLevel number 
@@ -24,7 +24,7 @@ function GetExpansionForLevel(playerLevel) end
 ---@return number expansionLevel
 function GetExpansionLevel() end
 
----@return boolean, number|nil isExpansionTrialAccount, expansionTrialRemainingSeconds
+---@return boolean, time_t|nil isExpansionTrialAccount, expansionTrialRemainingSeconds
 function GetExpansionTrialInfo() end
 
 --- Maps an expansion level to a maximum character level for that expansion.
@@ -50,6 +50,9 @@ function GetNumExpansions() end
 ---@return number serverExpansionLevel
 function GetServerExpansionLevel() end
 
+---@return boolean available
+function IsDemonHunterAvailable() end
+
 ---@return boolean isExpansionTrialAccount
 function IsExpansionTrial() end
 
@@ -63,27 +66,27 @@ function IsVeteranTrialAccount() end
 function SendSubscriptionInterstitialResponse(response) end
 
 ---@class SubscriptionInterstitialResponseType
-local SubscriptionInterstitialResponseType = {}
+SubscriptionInterstitialResponseType = {}
 SubscriptionInterstitialResponseType.Clicked = 0
 SubscriptionInterstitialResponseType.Closed = 1
 SubscriptionInterstitialResponseType.WebRedirect = 2
 
 ---@class SubscriptionInterstitialType
-local SubscriptionInterstitialType = {}
+SubscriptionInterstitialType = {}
 SubscriptionInterstitialType.Standard = 0
 SubscriptionInterstitialType.LeftNpeArea = 1
 SubscriptionInterstitialType.MaxLevel = 2
 
 ---@class ExpansionDisplayInfo
----@field logo number 
----@field banner string 
----@field features table 
----@field highResBackgroundID number 
----@field lowResBackgroundID number 
-local ExpansionDisplayInfo = {}
+---@field logo fileID 
+---@field banner textureAtlas 
+---@field features ExpansionDisplayInfoFeature 
+---@field highResBackgroundID fileID 
+---@field lowResBackgroundID fileID 
+ExpansionDisplayInfo = {}
 
 ---@class ExpansionDisplayInfoFeature
----@field icon number 
----@field text string 
-local ExpansionDisplayInfoFeature = {}
+---@field icon fileID 
+---@field text cstring 
+ExpansionDisplayInfoFeature = {}
 

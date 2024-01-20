@@ -1,4 +1,4 @@
----@class GossipInfo
+---@class C_GossipInfo @GossipInfo
 C_GossipInfo = {}
 
 function C_GossipInfo.CloseGossip() end
@@ -44,7 +44,7 @@ function C_GossipInfo.GetPoiForUiMapID(uiMapID) end
 ---@return GossipPoiInfo|nil gossipPoiInfo
 function C_GossipInfo.GetPoiInfo(uiMapID, gossipPoiID) end
 
----@return string gossipText
+---@return cstring gossipText
 function C_GossipInfo.GetText() end
 
 function C_GossipInfo.RefreshOptions() end
@@ -56,19 +56,22 @@ function C_GossipInfo.SelectActiveQuest(optionID) end
 function C_GossipInfo.SelectAvailableQuest(optionID) end
 
 ---@param optionID number 
----@param text string @ [OPTIONAL]
+---@param text cstring @ [OPTIONAL]
 ---@param confirmed boolean @ [OPTIONAL]
----@overload fun(optionID:number, confirmed:bool)
----@overload fun(optionID:number)
 function C_GossipInfo.SelectOption(optionID, text, confirmed) end
 
+---@param optionID number 
+---@param text cstring @ [OPTIONAL]
+---@param confirmed boolean @ [OPTIONAL]
+function C_GossipInfo.SelectOptionByIndex(optionID, text, confirmed) end
+
 ---@class GossipOptionRewardType
-local GossipOptionRewardType = {}
+GossipOptionRewardType = {}
 GossipOptionRewardType.Item = 0
 GossipOptionRewardType.Currency = 1
 
 ---@class GossipOptionStatus
-local GossipOptionStatus = {}
+GossipOptionStatus = {}
 GossipOptionStatus.Available = 0
 GossipOptionStatus.Unavailable = 1
 GossipOptionStatus.Locked = 2
@@ -84,50 +87,51 @@ GossipOptionStatus.AlreadyComplete = 3
 ---@field reaction string 
 ---@field reactionThreshold number 
 ---@field nextThreshold number|nil 
----@field reversedColor bool 
+---@field reversedColor boolean 
 ---@field overrideColor number|nil 
-local FriendshipReputationInfo = {}
+FriendshipReputationInfo = {}
 
 ---@class FriendshipReputationRankInfo
 ---@field currentLevel number 
 ---@field maxLevel number 
-local FriendshipReputationRankInfo = {}
+FriendshipReputationRankInfo = {}
 
 ---@class GossipOptionRewardInfo
 ---@field id number 
 ---@field quantity number 
 ---@field rewardType GossipOptionRewardType 
-local GossipOptionRewardInfo = {}
+GossipOptionRewardInfo = {}
 
 ---@class GossipOptionUIInfo
----@field gossipOptionID number 
+---@field gossipOptionID number|nil 
 ---@field name string 
----@field icon number 
----@field rewards table 
+---@field icon fileID 
+---@field rewards GossipOptionRewardInfo 
 ---@field status GossipOptionStatus 
 ---@field spellID number|nil 
 ---@field flags number 
----@field overrideIconID number|nil 
----@field selectOptionWhenOnlyOption bool 
+---@field overrideIconID fileID|nil 
+---@field selectOptionWhenOnlyOption boolean 
 ---@field orderIndex number 
-local GossipOptionUIInfo = {}
+GossipOptionUIInfo = {}
 
 ---@class GossipPoiInfo
 ---@field name string 
 ---@field textureIndex number 
----@field position table 
----@field inBattleMap bool 
-local GossipPoiInfo = {}
+---@field position vector2 
+---@field inBattleMap boolean 
+GossipPoiInfo = {}
 
 ---@class GossipQuestUIInfo
 ---@field title string 
 ---@field questLevel number 
----@field isTrivial bool 
+---@field isTrivial boolean 
 ---@field frequency number|nil 
----@field repeatable bool|nil 
----@field isComplete bool|nil 
----@field isLegendary bool 
----@field isIgnored bool 
+---@field repeatable boolean|nil 
+---@field isComplete boolean|nil 
+---@field isLegendary boolean 
+---@field isIgnored boolean 
 ---@field questID number 
-local GossipQuestUIInfo = {}
+---@field isImportant boolean 
+GossipQuestUIInfo = {}
 

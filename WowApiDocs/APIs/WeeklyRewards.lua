@@ -1,4 +1,4 @@
----@class WeeklyRewards
+---@class C_WeeklyRewards @WeeklyRewards
 C_WeeklyRewards = {}
 
 ---@return boolean isCurrentPeriod
@@ -13,31 +13,42 @@ function C_WeeklyRewards.ClaimReward(id) end
 function C_WeeklyRewards.CloseInteraction() end
 
 ---@param type WeeklyRewardChestThresholdType @ [OPTIONAL]
----@overload fun()
 ---@return WeeklyRewardActivityInfo activities
 function C_WeeklyRewards.GetActivities(type) end
 
 ---@param type WeeklyRewardChestThresholdType 
----@param index number 
+---@param index luaIndex 
 ---@return WeeklyRewardActivityEncounterInfo info
 function C_WeeklyRewards.GetActivityEncounterInfo(type, index) end
 
 ---@return ConquestWeeklyProgress weeklyProgress
 function C_WeeklyRewards.GetConquestWeeklyProgress() end
 
+---@param activityTierID number 
+---@return number difficultyID
+function C_WeeklyRewards.GetDifficultyIDForActivityTier(activityTierID) end
+
 ---@param id number 
 ---@return string, string hyperlink, upgradeHyperlink
 function C_WeeklyRewards.GetExampleRewardItemHyperlinks(id) end
 
----@param itemDBID string 
----@return string hyperlink
+---@param itemDBID WeeklyRewardItemDBID 
+---@return cstring hyperlink
 function C_WeeklyRewards.GetItemHyperlink(itemDBID) end
+
+---@param activityTierID number 
+---@param level number 
+---@return boolean, number|nil, number|nil, number|nil hasSeasonData, nextActivityTierID, nextLevel, itemLevel
+function C_WeeklyRewards.GetNextActivitiesIncrease(activityTierID, level) end
 
 ---@param mythicPlusLevel number 
 ---@return boolean, number|nil, number|nil hasSeasonData, nextMythicPlusLevel, itemLevel
 function C_WeeklyRewards.GetNextMythicPlusIncrease(mythicPlusLevel) end
 
----@return string uiTextureKit
+---@return number, number, number numHeroic, numMythic, numMythicPlus
+function C_WeeklyRewards.GetNumCompletedDungeonRuns() end
+
+---@return textureKit uiTextureKit
 function C_WeeklyRewards.GetWeeklyRewardTextureKit() end
 
 ---@return boolean hasAvailableRewards
@@ -61,7 +72,7 @@ function C_WeeklyRewards.ShouldShowFinalRetirementMessage() end
 function C_WeeklyRewards.ShouldShowRetirementMessage() end
 
 ---@class ConquestProgressBarDisplayType
-local ConquestProgressBarDisplayType = {}
+ConquestProgressBarDisplayType = {}
 ConquestProgressBarDisplayType.FirstChest = 0
 ConquestProgressBarDisplayType.AdditionalChest = 1
 ConquestProgressBarDisplayType.Seasonal = 2
@@ -73,31 +84,32 @@ ConquestProgressBarDisplayType.Seasonal = 2
 ---@field unlocksCompleted number 
 ---@field maxUnlocks number 
 ---@field sampleItemHyperlink string 
-local ConquestWeeklyProgress = {}
+ConquestWeeklyProgress = {}
 
 ---@class WeeklyRewardActivityEncounterInfo
 ---@field encounterID number 
 ---@field bestDifficulty number 
 ---@field uiOrder number 
 ---@field instanceID number 
-local WeeklyRewardActivityEncounterInfo = {}
+WeeklyRewardActivityEncounterInfo = {}
 
 ---@class WeeklyRewardActivityInfo
 ---@field type WeeklyRewardChestThresholdType 
----@field index number 
+---@field index luaIndex 
 ---@field threshold number 
 ---@field progress number 
 ---@field id number 
+---@field activityTierID number 
 ---@field level number 
 ---@field claimID number|nil 
----@field raidString string|nil 
----@field rewards table 
-local WeeklyRewardActivityInfo = {}
+---@field raidString cstring|nil 
+---@field rewards WeeklyRewardActivityRewardInfo 
+WeeklyRewardActivityInfo = {}
 
 ---@class WeeklyRewardActivityRewardInfo
 ---@field type CachedRewardType 
 ---@field id number 
 ---@field quantity number 
----@field itemDBID string|nil 
-local WeeklyRewardActivityRewardInfo = {}
+---@field itemDBID WeeklyRewardItemDBID|nil 
+WeeklyRewardActivityRewardInfo = {}
 
