@@ -107,7 +107,8 @@ function panel:InitializeOptions()
 
     end
 
-    InterfaceOptions_AddCategory(self.panel)
+    local category, layout = Settings.RegisterCanvasLayoutCategory(self.panel, "PPAutoMacro");
+	Settings.RegisterAddOnCategory(category);
 end
 
 SLASH_PPAM1 = "/ppam"
