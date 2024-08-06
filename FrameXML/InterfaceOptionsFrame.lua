@@ -1,6 +1,7 @@
 local addonName, pp = ...
 
 local rowOffset = -30
+local categoryId = nil
 local potionSettings = {
     { name = "useShockingDisclosureInDungeons", default = false, desc = "Use Potion of Shocking Disclosure in dungeons" };
 }
@@ -109,9 +110,10 @@ function panel:InitializeOptions()
 
     local category, layout = Settings.RegisterCanvasLayoutCategory(self.panel, "PPAutoMacro");
 	Settings.RegisterAddOnCategory(category);
+	categoryId = category:GetID()
 end
 
 SLASH_PPAM1 = "/ppam"
 SlashCmdList.PPAM = function(msg, editBox)
-    InterfaceOptionsFrame_OpenToCategory(panel.panel)
+	Settings.OpenToCategory(categoryId)
 end
