@@ -1,27 +1,11 @@
 local addonName, pp = ...
 
-local rowOffset = -30
-local categoryId = nil
-local potionSettings = {
-    { name = "useShockingDisclosureInDungeons", default = false, desc = "Use Potion of Shocking Disclosure in dungeons" };
-}
-local phialSettings = {
-    { name = "useAlacrity", default = false, desc = "Use Charged Phial of Alacrity" };
-    { name = "useCorruptingRage", default = false, desc = "Use Iced Phial of Corrupting Rage" };
-    { name = "useChargedIsolation", default = false, desc = "Use Phial of Charged Isolation" };
-    { name = "useElementalChaos", default = false, desc = "Use Phial of Elemental Chaos" };
-    { name = "useGlacialFury", default = false, desc = "Use Phial of Glacial Fury" };
-    { name = "useIcyPreservation", default = false, desc = "Use Phial of Icy Preservation" };
-    { name = "useStaticEmpowerment", default = false, desc = "Use Phial of Static Empowerment" };
-    { name = "useStillAir", default = false, desc = "Use Phial of Still Air" };
-    { name = "useTepidVersatility", default = true, desc = "Use Phial of Tepid Versatility" };
-    { name = "useEyeStorm", default = false, desc = "Use Phial of the Eye in the Storm" };
-}
+buttonPrefix = "Button"
+pp[buttonPrefix] = {}
+pp[buttonPrefix][potionPrefix] = {}
+pp[buttonPrefix][phialPrefix] = {}
 
-local settings = {
-    { key = "Potion", values = potionSettings };
-    { key = "Phial", values = phialSettings };
-}
+local rowOffset = -30
 
 local panel = CreateFrame("Frame")
 
@@ -31,18 +15,6 @@ function panel:OnEvent(event, addOnName)
             PPDB = {}
         end
 
-        for _, setting in ipairs(settings) do
-            if PPDB[setting.key] == nil then
-                PPDB[setting.key] = {}
-            end
-
-            for _, v in ipairs(setting.values) do
-                if PPDB[setting.key][v.name] == nil then
-                    PPDB[setting.key][v.name] = v.default
-                end
-            end
-        end
-        self.db = PPDB
         self:InitializeOptions()
     end
 end
@@ -65,20 +37,44 @@ function panel:InitializeOptions()
     subtitle:SetPoint("TOPLEFT", 20, iterCounter * rowOffset)
     subtitle:SetText("Here you can configure the behaviour of the Addon.")
 
-
-    for _, v in ipairs(potionSettings) do
+    for settingsKey, potionRoot in pairs(potionData) do
         iterCounter = iterCounter + 1
         local button = CreateFrame("CheckButton", nil, self.panel, "InterfaceOptionsCheckButtonTemplate")
         button:SetPoint("TOPLEFT", subtitle, 20, iterCounter * rowOffset)
-        button.Text:SetText(v.desc)
-        button:SetChecked(self.db["Potion"][v.name])
+        --- @type PPItem
+        local item = pp[potionPrefix][potionRoot[1].tierIDs[3]]
+
+        item.getItem():ContinueOnItemLoad(function()
+            button.Text:SetText("Use " .. item.getName())
+        end)
+
+        button:HookScript("OnEnter", function()
+            GameTooltip:SetOwner(button, "ANCHOR_RIGHT")
+            GameTooltip:SetItemByID(item.getId())
+            GameTooltip:Show()
+        end)
+        button:HookScript("OnLeave", function()
+            GameTooltip:Hide()
+        end)
         button:HookScript("OnClick", function(_, btn, down)
-            self.db["Potion"][v.name] = not self.db["Potion"][v.name]
-            pp[v.name .. "Button"]:SetChecked(self.db["Potion"][v.name])
+
+            for setKey, _ in pairs(PPDB[potionPrefix]) do
+                PPDB[potionPrefix][setKey] = false
+                if pp[buttonPrefix][potionPrefix][setKey] then
+                    pp[buttonPrefix][potionPrefix][setKey]:SetChecked(false)
+                else
+                    -- Remove old settings
+                    PPDB[potionPrefix][setKey] = nil
+                end
+            end
+
+            PPDB[potionPrefix][settingsKey] = true
+            pp[buttonPrefix][potionPrefix][settingsKey]:SetChecked(PPDB[potionPrefix][settingsKey])
             pp.PPAM_UPDATE(nil, nil)
         end)
 
-        pp[v.name .. "Button"] = button
+        button:SetChecked(PPDB[potionPrefix][settingsKey])
+        pp[buttonPrefix][potionPrefix][settingsKey] = button
     end
 
     iterCounter = iterCounter + 1
@@ -86,34 +82,52 @@ function panel:InitializeOptions()
     phialText:SetPoint("TOPLEFT", subtitle, 20, rowOffset * iterCounter - 10)
     phialText:SetText("------ Phials to use ------")
 
-
-    for _, v in ipairs(phialSettings) do
+    for settingsKey, phialRoot in pairs(phialData) do
         iterCounter = iterCounter + 1
         local button = CreateFrame("CheckButton", nil, self.panel, "InterfaceOptionsCheckButtonTemplate")
         button:SetPoint("TOPLEFT", subtitle, 20, iterCounter * rowOffset)
-        button.Text:SetText(v.desc)
-        button:SetChecked(self.db["Phial"][v.name])
+        --- @type PPItem
+        local item = pp[phialPrefix][phialRoot[1].tierIDs[3]]
+
+        item.getItem():ContinueOnItemLoad(function()
+            button.Text:SetText("Use " .. item.getName())
+        end)
+
+        button:HookScript("OnEnter", function()
+            GameTooltip:SetOwner(button, "ANCHOR_RIGHT")
+            GameTooltip:SetItemByID(item.getId())
+            GameTooltip:Show()
+        end)
+        button:HookScript("OnLeave", function()
+            GameTooltip:Hide()
+        end)
         button:HookScript("OnClick", function(_, btn, down)
-            local name = v.name
-            for k in pairs(self.db["Phial"]) do
-                self.db["Phial"][k] = false
-                pp[k .. 'Button']:SetChecked(false)
+
+            for setKey, _ in pairs(PPDB[phialPrefix]) do
+                PPDB[phialPrefix][setKey] = false
+                if pp[buttonPrefix][phialPrefix][setKey] then
+                    pp[buttonPrefix][phialPrefix][setKey]:SetChecked(false)
+                else
+                    -- Remove old settings
+                    PPDB[phialPrefix][setKey] = nil
+                end
             end
-            self.db["Phial"][name] = true
-            pp[name .. "Button"]:SetChecked(self.db["Phial"][name])
+
+            PPDB[phialPrefix][settingsKey] = true
+            pp[buttonPrefix][phialPrefix][settingsKey]:SetChecked(PPDB[phialPrefix][settingsKey])
             pp.PPAM_UPDATE(nil, nil)
         end)
 
-        pp[v.name .. "Button"] = button
-
+        button:SetChecked(PPDB[phialPrefix][settingsKey])
+        pp[buttonPrefix][phialPrefix][settingsKey] = button
     end
 
     local category, layout = Settings.RegisterCanvasLayoutCategory(self.panel, "PPAutoMacro");
-	Settings.RegisterAddOnCategory(category);
-	categoryId = category:GetID()
+    Settings.RegisterAddOnCategory(category);
+    categoryId = category:GetID()
 end
 
 SLASH_PPAM1 = "/ppam"
 SlashCmdList.PPAM = function(msg, editBox)
-	Settings.OpenToCategory(categoryId)
+    Settings.OpenToCategory(categoryId)
 end

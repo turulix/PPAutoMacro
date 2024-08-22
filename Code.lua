@@ -2,6 +2,9 @@ local addonName, pp = ...
 local potionMacroName = "PPAutoPot"
 local phialMacroName = "PPAutoPhial"
 
+phialPrefix = "Phial"
+potionPrefix = "Potion"
+
 local function createMacroIfMissing()
     if GetMacroInfo(potionMacroName) == nil then
         CreateMacro(potionMacroName, "INV_Misc_QuestionMark")
@@ -38,7 +41,7 @@ end
 
 local function addPotionIfAvailable()
     pots = pp.getPots()
-    for iterator, value in ipairs(pots) do
+    for _, value in ipairs(pots) do
         if value.getCount() > 0 then
             table.insert(pp.availablePotions, value.getId())
             --we break because all Pots share a cd so we only want the highest power potion
@@ -49,7 +52,7 @@ end
 
 local function addPhialIfAvailable()
     phials = pp.getPhials()
-    for iterator, value in ipairs(phials) do
+    for _, value in ipairs(phials) do
         if value.getCount() > 0 then
             table.insert(pp.availablePhials, value.getId())
             --we break because all Pots share a cd so we only want the highest power potion

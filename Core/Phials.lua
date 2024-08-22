@@ -1,54 +1,38 @@
 local addonName, pp = ...
 
-local prefix = "Phial"
+pp[phialPrefix] = {}
 -- Lower => Higher priority
 phialData = {
-    useAlacrity = {
-        { key = "Alacrity", tierIDs = { 191348, 191349, 191350 }, desc = "Charged Phial of Alacrity" };
-        { key = "FleetAlacrity", tierIDs = { 204667, 204668, 204669 }, desc = "Fleeting Charged Phial of Alacrity" };
+    useAlchemicalChaos = {
+        { key = "AlchemicalChaos", tierIDs = { 212281, 212282, 212283 } };
+        { key = "FleetAlchemicalChaos", tierIDs = { 212739, 212740, 212741 } };
     },
-    useCorruptingRage = {
-        { key = "CorruptingRage", tierIDs = { 191327, 191328, 191329 }, desc = "Iced Phial of Corrupting Rage" };
-        { key = "FleetCorruptingRage", tierIDs = { 204652, 204653, 204654 }, desc = "Fleeting Iced Phial of Corrupting Rage" };
+    useTemperedMastery = {
+        { key = "TemperedMastery", tierIDs = { 212278, 212279, 212280 } };
+        { key = "FleetTemperedMastery", tierIDs = { 212735, 212736, 212738 } };
     },
-    useChargedIsolation = {
-        { key = "ChargedIsolation", tierIDs = { 191330, 191331, 191332 }, desc = "Phial of Charged Isolation" };
-        { key = "FleetChargedIsolation", tierIDs = { 204655, 204656, 204657 }, desc = "Fleeting Phial of Charged Isolation" };
+    useTemperedSwiftness = {
+        { key = "TemperedSwiftness", tierIDs = { 212272, 212273, 212274 } };
+        { key = "FleetTemperedSwiftness", tierIDs = { 212729, 212730, 212731 } };
     },
-    useElementalChaos = {
-        { key = "ElementalChaos", tierIDs = { 191357, 191358, 191359 }, desc = "Phial of Elemental Chaos" };
-        { key = "FleetElementalChaos", tierIDs = { 204670, 204671, 204672 }, desc = "Fleeting Phial of Elemental Chaos" };
+    useTemperedVersatility = {
+        { key = "TemperedVersatility", tierIDs = { 212275, 212276, 212277 } };
+        { key = "FleetTemperedVersatility", tierIDs = { 212732, 212733, 212734 } };
     },
-    useGlacialFury = {
-        { key = "GlacialFury", tierIDs = { 191333, 191334, 191335 }, desc = "Phial of Glacial Fury" };
-        { key = "FleetGlacialFury", tierIDs = { 204658, 204659, 204660 }, desc = "Fleeting Phial of Glacial Fury" };
+    useTemperedAggression = {
+        { key = "TemperedAggression", tierIDs = { 212269, 212270, 212271 } };
+        { key = "FleetTemperedAggression", tierIDs = { 212725, 212727, 212728 } };
     },
-    useIcyPreservation = {
-        { key = "IcyPreservation", tierIDs = { 191324, 191325, 191326 }, desc = "Phial of Icy Preservation" };
-        { key = "FleetIcyPreservation", tierIDs = { 204649, 204650, 204651 }, desc = "Fleeting Phial of Icy Preservation" };
-    },
-    useStaticEmpowerment = {
-        { key = "StaticEmpowerment", tierIDs = { 191336, 191337, 191338 }, desc = "Phial of Static Empowerment" };
-        { key = "FleetStaticEmpowerment", tierIDs = { 204661, 204662, 204663 }, desc = "Fleeting Phial of Static Empowerment" };
-    },
-    useStillAir = {
-        { key = "StillAir", tierIDs = { 191321, 191322, 191323 }, desc = "Phial of Still Air" };
-        { key = "FleetStillAir", tierIDs = { 204646, 204647, 204648 }, desc = "Fleeting Phial of Still Air" };
-    },
-    useTepidVersatility = {
-        { key = "TepidVersatility", tierIDs = { 191339, 191340, 191341 }, desc = "Phial of Tepid Versatility" };
-        { key = "FleetTepidVersatility", tierIDs = { 204664, 204665, 204666 }, desc = "Fleeting Phial of Tepid Versatility" };
-    },
-    useEyeStorm = {
-        { key = "EyeStorm", tierIDs = { 191318, 191319, 191320 }, desc = "Phial of the Eye in the Storm" };
-        { key = "FleetEyeStorm", tierIDs = { 204643, 204644, 204645 }, desc = "Fleeting Phial of the Eye in the Storm" };
+    useSavingGraces = {
+        { key = "SavingGraces", tierIDs = { 212299, 212300, 212301 } };
+        { key = "FleetSavingGraces", tierIDs = { 212745, 212746, 212747 } };
     }
 }
 
 for _, phialRoots in pairs(phialData) do
-    for _, potion in ipairs(phialRoots) do
-        for index, id in ipairs(potion.tierIDs) do
-            pp[prefix .. potion.key .. index] = pp.Item.new(id, potion.desc)
+    for _, phial in ipairs(phialRoots) do
+        for _, id in ipairs(phial.tierIDs) do
+            pp[phialPrefix][id] = pp.PPItem.new(id)
         end
     end
 end
@@ -57,10 +41,11 @@ function pp.getPhials()
     local phials = {}
 
     for settingsKey, phialRoots in pairs(phialData) do
-        for _, phial in ipairs(phialRoots) do
-            for index, _ in ipairs(phial.tierIDs) do
-                if PPDB["Phial"][settingsKey] then
-                    table.insert(phials, 1, pp[prefix .. phial.key .. index])
+        -- phialType is a table with key and tierIDs
+        for _, phialType in pairs(phialRoots) do
+            for _, id in ipairs(phialType.tierIDs) do
+                if PPDB[phialPrefix][settingsKey] then
+                    table.insert(phials, 1, pp[phialPrefix][id])
                 end
             end
         end

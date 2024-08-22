@@ -1,27 +1,39 @@
 local addonName, pp = ...
 
-pp.Item = {}
+--- @class PPItem
+--- @field id number The item id
+--- @field getName fun():string
+--- @field getItem fun():ItemLocationMixin
+--- @field getCount fun():number
+--- @field getId fun():number
+pp.PPItem = {}
 
-pp.Item.new = function(id,name)
-  local self = {}
+--- @param id number
+--- @return PPItem
+pp.PPItem.new = function(id)
+    local self = {}
 
-  self.id = id
-  self.name = name
+    --- @type number
+    self.id = id
 
-  local function setName()
-    local itemInfoName = GetItemInfo(self.id)
-      if itemInfoName~=nil then
-        self.name = itemInfoName
-      end
-  end
+    --- @return string
+    function self.getName()
+        return C_Item.GetItemNameByID(self.id)
+    end
 
-  function self.getId()
-    return self.id
-  end
+    function self.getItem()
+        return Item:CreateFromItemID(self.id)
+    end
 
-  function self.getCount ()
-    return GetItemCount(self.id, false, false)
-  end
+    --- @return number
+    function self.getId()
+        return self.id
+    end
 
-  return self
+    --- @return number
+    function self.getCount ()
+        return GetItemCount(self.id, false, false, false, false)
+    end
+
+    return self
 end

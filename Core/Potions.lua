@@ -1,37 +1,52 @@
 local addonName, pp = ...
 
-local prefix = "Potion"
+pp[potionPrefix] = {}
 -- Lower => Higher priority
 potionData = {
-    { key = "Power", tierIDs = { 191387, 191388, 191389 }, skip = false, desc = "Elemental Potion of Power" };
-    { key = "UltimatePower", tierIDs = { 191381, 191382, 191383 }, skip = false, desc = "Elemental Potion of Ultimate Power" };
-    { key = "FleetPower", tierIDs = { 191905, 191906, 191907 }, skip = false, desc = "Fleeting Elemental Potion of Power" };
-    { key = "FleetUltimatePower", tierIDs = { 191912, 191913, 191914 }, skip = false, desc = "Fleeting Elemental Potion of Ultimate Power" };
-    { key = "ShockingDisclosure", tierIDs = { 191399, 191400, 191401 }, skip = true, desc = "Potion of Shocking Disclosure" };
+    useFrontlinePotion = {
+        { key = "FrontlinePower", tierIDs = { 212260, 212261, 212262 } };
+        { key = "FleetFrontlinePower", tierIDs = { 212966, 212967, 212968 } };
+    },
+    useGrotesqueVials = {
+        { key = "GrotesqueVials", tierIDs = { 212254, 212255, 212256 } };
+        { key = "FleetGrotesqueVials", tierIDs = { 212960, 212961, 212962 } };
+    },
+    useTemperedPotions = {
+        { key = "TemperedPotions", tierIDs = { 212263, 212264, 212265 } };
+        { key = "FleetTemperedPotions", tierIDs = { 212969, 212970, 212971 } };
+    },
+    usePotionOfUnwaveringFocus = {
+        { key = "PotionOfUnwaveringFocus", tierIDs = { 212257, 212258, 212259 } };
+        { key = "FleetPotionOfUnwaveringFocus", tierIDs = { 212963, 212964, 212965 } };
+    },
 }
 
-for _, potion in pairs(potionData) do
-    for tier, id in ipairs(potion.tierIDs) do
-        pp[prefix .. potion.key .. tier] = pp.Item.new(id, potion.desc)
+for _, potionRoot in pairs(potionData) do
+    for _, potion in ipairs(potionRoot) do
+        for _, id in ipairs(potion.tierIDs) do
+            pp[potionPrefix][id] = pp.PPItem.new(id)
+        end
     end
 end
 
 function pp.getPots()
     local pots = {}
 
-    for _, potion in pairs(potionData) do
-        for index, _ in ipairs(potion.tierIDs) do
-            if not potion.skip then
-                table.insert(pots, 1, pp[prefix .. potion.key .. index])
+    for settingsKey, potionRoot in pairs(potionData) do
+        for _, potion in ipairs(potionRoot) do
+            for _, id in ipairs(potion.tierIDs) do
+                if PPDB[potionPrefix][settingsKey] then
+                    table.insert(pots, 1, pp[potionPrefix][id])
+                end
             end
         end
     end
 
-    local _, type = GetInstanceInfo()
-    if PPDB["Potion"]["useShockingDisclosureInDungeons"] and type == "party" then
-        table.insert(pots, 1, pp["PotionShockingDisclosure1"])
-        table.insert(pots, 1, pp["PotionShockingDisclosure2"])
-        table.insert(pots, 1, pp["PotionShockingDisclosure3"])
-    end
+    --local _, type = GetInstanceInfo()
+    --if PPDB["Potion"]["useShockingDisclosureInDungeons"] and type == "party" then
+    --    table.insert(pots, 1, pp["PotionShockingDisclosure1"])
+    --    table.insert(pots, 1, pp["PotionShockingDisclosure2"])
+    --    table.insert(pots, 1, pp["PotionShockingDisclosure3"])
+    --end
     return pots
 end
