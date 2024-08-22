@@ -41,7 +41,7 @@ function pp.getPhials()
     local phials = {}
 
     for settingsKey, phialRoots in pairs(phialData) do
-        -- phialType is a table with key and tierIDs
+        -- phialType is either fleeting or normal
         for _, phialType in pairs(phialRoots) do
             for _, id in ipairs(phialType.tierIDs) do
                 if PPDB[phialPrefix][settingsKey] then
