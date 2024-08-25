@@ -15,6 +15,14 @@ function panel:OnEvent(event, addOnName)
             PPDB = {}
         end
 
+        if not PPDB[potionPrefix] then
+            PPDB[potionPrefix] = {}
+        end
+
+        if not PPDB[phialPrefix] then
+            PPDB[phialPrefix] = {}
+        end
+
         self:InitializeOptions()
     end
 end

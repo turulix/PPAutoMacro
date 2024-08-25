@@ -1,6 +1,7 @@
 local addonName, pp = ...
 
 pp[potionPrefix] = {}
+
 -- Lower => Higher priority
 potionData = {
     useFrontlinePotion = {

@@ -1,6 +1,7 @@
 local addonName, pp = ...
 
 pp[phialPrefix] = {}
+
 -- Lower => Higher priority
 phialData = {
     useAlchemicalChaos = {
